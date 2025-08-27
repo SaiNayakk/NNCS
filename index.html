@@ -32,18 +32,19 @@
     .sub{color:var(--muted); font-size:1rem}
 
     section{padding:3rem 0}
-    .section-title{font-size:1.6rem; margin:0 0 .75rem}
+    .section-title{font-size:1.6rem; margin:0 0 .75rem; background:rgba(255,255,255,0.05); padding:.5rem 1rem; border-radius:8px; cursor:pointer}
     .section-sub{margin:0 0 1.6rem; color:var(--muted)}
 
     .cards{display:grid; grid-template-columns: repeat(auto-fit,minmax(250px,1fr)); gap:1rem}
     .card{background: rgba(255,255,255,0.03); border:1px solid var(--stroke); border-radius:var(--radius); padding:1.2rem}
 
     /* Gallery */
-    .gallery-rows{display:flex; flex-direction:column; gap:1rem}
+    .gallery-rows{display:flex; flex-direction:column; gap:1rem; overflow:hidden; transition:max-height .5s ease}
     .gallery-wrap{position:relative; max-width:900px; margin:0 auto}
     .gallery-track{display:grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap:1rem}
     .gallery-item{width:100%; aspect-ratio:4/3; border-radius:12px; object-fit:cover; object-position:center; border:1px solid var(--stroke); background:rgba(255,255,255,.04); filter:blur(12px); transform:scale(1.03); transition:filter .4s ease, transform .4s ease}
     .gallery-item.loaded{filter:blur(0); transform:none}
+    .collapsed{max-height:0; padding:0; margin:0}
 
     .contact-item{display:flex; gap:.8rem; align-items:start; padding:.7rem; border-radius:12px; border:1px dashed var(--stroke); margin-bottom:.5rem}
     .contact-item b{display:block}
@@ -99,7 +100,7 @@
 
     <section id="gallery">
       <div class="container">
-        <h2 class="section-title" id="gallery-toggle" style="cursor:pointer">Gallery</h2>
+        <h2 class="section-title" id="gallery-toggle">Gallery</h2>
         <div class="gallery-rows" id="gallery-content">
           <div class="gallery-wrap">
             <div class="gallery-track">
@@ -174,6 +175,13 @@
     document.querySelectorAll('.gallery-item').forEach(img=>{
       if(img.complete) img.classList.add('loaded');
       else img.addEventListener('load', ()=>img.classList.add('loaded'), {once:true});
+    });
+
+    // Gallery toggle
+    const toggle = document.getElementById('gallery-toggle');
+    const content = document.getElementById('gallery-content');
+    toggle.addEventListener('click', ()=>{
+      content.classList.toggle('collapsed');
     });
   </script>
 </body>
