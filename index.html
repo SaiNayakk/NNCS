@@ -14,65 +14,50 @@
       --brand: #4f46e5;
       --brand-2: #06b6d4;
       --stroke: rgba(255,255,255,0.08);
-      --radius: 12px;
-      --shadow: 0 6px 18px rgba(0,0,0,.3);
+      --radius: 16px;
+      --shadow: 0 10px 30px rgba(0,0,0,.35), 0 2px 6px rgba(0,0,0,.2);
     }
     *{box-sizing:border-box}
     body{margin:0; font-family: ui-sans-serif, system-ui; color:var(--fg); background: var(--bg); line-height:1.6; }
     a{color:inherit; text-decoration:none}
-    .container{max-width:1100px; margin:0 auto; padding:0 1rem}
+    .container{max-width:1200px; margin:0 auto; padding:0 1.2rem}
     header{position:sticky; top:0; z-index:50; backdrop-filter: blur(10px); background: rgba(11,16,32,.9); border-bottom:1px solid var(--stroke)}
-    .nav{display:flex; align-items:center; justify-content:space-between; padding:.7rem 0}
-    .brand{display:flex; align-items:center; gap:.5rem}
-    .logo-text{font-weight:900; font-size:1.1rem; color:var(--fg)}
-    nav ul{display:flex; gap:.75rem; list-style:none; margin:0; padding:0; overflow-x:auto}
-    nav a{padding:.4rem .6rem; border-radius:8px; color:var(--muted); font-size:.9rem}
+    .nav{display:flex; align-items:center; justify-content:space-between; padding:.9rem 0}
+    .brand{display:flex; align-items:center; gap:.75rem}
+    .logo-text{font-weight:900; font-size:1.2rem; color:var(--fg)}
+    nav ul{display:flex; gap:1rem; list-style:none; margin:0; padding:0}
+    nav a{padding:.5rem .8rem; border-radius:10px; color:var(--muted)}
     nav a:hover{background:rgba(255,255,255,.06); color:var(--fg)}
-    .cta{display:inline-flex; align-items:center; gap:.4rem; background:linear-gradient(135deg, var(--brand), var(--brand-2)); color:white; padding:.6rem .9rem; border:none; border-radius:999px; box-shadow:var(--shadow); cursor:pointer; font-weight:600; font-size:.9rem}
+    .cta{display:inline-flex; align-items:center; gap:.6rem; background:linear-gradient(135deg, var(--brand), var(--brand-2)); color:white; padding:.75rem 1rem; border:none; border-radius:999px; box-shadow:var(--shadow); cursor:pointer; font-weight:700}
 
-    .hero{padding:2.5rem 0 2rem}
-    .headline{font-size:clamp(1.5rem, 4.5vw, 2.4rem); line-height:1.25; margin:.5rem 0}
-    .sub{color:var(--muted); font-size:.95rem}
+    .hero{padding:3rem 0 2rem}
+    .headline{font-size:clamp(1.8rem, 5vw, 2.8rem); line-height:1.2; margin:.75rem 0}
+    .sub{color:var(--muted); font-size:1rem}
 
-    section{padding:2.5rem 0}
-    .section-title{font-size:1.4rem; margin:0 0 .5rem}
-    .section-sub{margin:0 0 1.2rem; color:var(--muted); font-size:.9rem}
+    section{padding:3rem 0}
+    .section-title{font-size:1.6rem; margin:0 0 .75rem}
+    .section-sub{margin:0 0 1.6rem; color:var(--muted)}
 
-    .cards{display:grid; grid-template-columns: repeat(auto-fit,minmax(220px,1fr)); gap:.8rem}
-    .card{background: rgba(255,255,255,0.03); border:1px solid var(--stroke); border-radius:var(--radius); padding:1rem}
+    .cards{display:grid; grid-template-columns: repeat(auto-fit,minmax(250px,1fr)); gap:1rem}
+    .card{background: rgba(255,255,255,0.03); border:1px solid var(--stroke); border-radius:var(--radius); padding:1.2rem}
 
     /* Gallery */
-    .gallery-rows{display:flex; flex-direction:column; gap:.8rem}
+    .gallery-rows{display:flex; flex-direction:column; gap:1rem}
     .gallery-wrap{position:relative}
-    .gallery-track{display:flex; gap:.6rem; overflow-x:auto; scroll-snap-type:x mandatory; -webkit-overflow-scrolling:touch; padding-bottom:.25rem}
-    .gallery-track::-webkit-scrollbar{height:5px}
-    .gallery-track::-webkit-scrollbar-thumb{background:rgba(255,255,255,.12); border-radius:999px}
-    .gallery-item{flex:0 0 clamp(110px, 18vw, 160px); aspect-ratio:4/3; border-radius:8px; object-fit:cover; object-position:center; scroll-snap-align:center; border:1px solid var(--stroke); background:rgba(255,255,255,.04); filter:blur(12px); transform:scale(1.03); transition:filter .4s ease, transform .4s ease}
+    .gallery-track{display:grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap:1rem;}
+    .gallery-item{width:100%; aspect-ratio:4/3; border-radius:12px; object-fit:cover; object-position:center; border:1px solid var(--stroke); background:rgba(255,255,255,.04); filter:blur(12px); transform:scale(1.03); transition:filter .4s ease, transform .4s ease}
     .gallery-item.loaded{filter:blur(0); transform:none}
-    .gallery-btn{position:absolute; top:50%; transform:translateY(-50%); border:none; background:rgba(0,0,0,.35); color:#fff; width:28px; height:28px; border-radius:999px; display:grid; place-items:center; cursor:pointer; backdrop-filter: blur(6px); font-size:.9rem}
-    .gallery-btn:hover{background:rgba(0,0,0,.55)}
-    .gallery-btn.prev{left:-4px}
-    .gallery-btn.next{right:-4px}
 
-    .contact-item{display:flex; gap:.6rem; align-items:start; padding:.6rem; border-radius:8px; border:1px dashed var(--stroke); margin-bottom:.4rem; font-size:.9rem}
+    .contact-item{display:flex; gap:.8rem; align-items:start; padding:.7rem; border-radius:12px; border:1px dashed var(--stroke); margin-bottom:.5rem}
     .contact-item b{display:block}
 
-    footer{border-top:1px solid var(--stroke); padding:1rem 0; color:var(--muted); font-size:.85rem}
+    footer{border-top:1px solid var(--stroke); padding:1.5rem 0; color:var(--muted)}
 
-    @media (max-width: 640px){
-      .gallery-item{flex:0 0 55vw}
-      .headline{font-size:1.4rem}
-      .sub{font-size:.9rem}
-      .cta{display:none}
-    }
     @media (min-width: 768px){
-      .gallery-item{flex-basis: 140px}
+      .gallery-track{grid-template-columns: repeat(3, 1fr);}
     }
-    @media (min-width: 1280px){
-      .gallery-item{flex-basis: 160px}
-    }
-      .headline{font-size:1.6rem}
-      .sub{font-size:.9rem}
+    @media (max-width: 640px){
+      .gallery-track{grid-template-columns: repeat(2, 1fr);}
     }
   /* Desktop: show exactly 3 images per row at a comfortable size */
     nav ul{overflow:visible}
@@ -80,6 +65,13 @@
     @media (min-width: 1024px){
       .gallery-wrap{max-width:780px; margin:0 auto}
       .gallery-item{flex:0 0 calc((100% - 2rem)/3); max-width: calc((100% - 2rem)/3);} /* 3 tiles with 1rem gaps */
+    }
+  /* Fix navbar scrollbar on desktop */
+    nav{overflow:visible}
+    nav ul{overflow:hidden; scrollbar-width:none}
+    nav ul::-webkit-scrollbar{display:none}
+    @media (max-width: 640px){
+      nav ul{overflow-x:auto; -webkit-overflow-scrolling:touch}
     }
   </style>
 </head>
@@ -106,7 +98,7 @@
       <div class="container">
         <h2 class="headline">Professional Consultancy for Modern Businesses</h2>
         <p class="sub">NNCS partners with organizations to provide trusted consulting services, tailored solutions, and long-term value. We keep things simple and effective.</p>
-        <div style="margin-top:1rem">
+        <div style="margin-top:1.2rem">
           <a class="cta" href="#contact">Contact us</a>
         </div>
       </div>
@@ -136,8 +128,7 @@
         <h2 class="section-title">Gallery</h2>
         <p class="section-sub">Swipe through our photos. Images are center-cropped with lazy blur-up effect.</p>
         <div class="gallery-rows">
-          <div class="gallery-wrap" data-row="1">
-            <button class="gallery-btn prev" aria-label="Previous row 1">&lsaquo;</button>
+          <div class="gallery-wrap">
             <div class="gallery-track">
               <img class="gallery-item" loading="lazy" decoding="async" src="images/01.jpeg" alt="Gallery image 1"/>
               <img class="gallery-item" loading="lazy" decoding="async" src="images/02.jpeg" alt="Gallery image 2"/>
@@ -150,12 +141,6 @@
               <img class="gallery-item" loading="lazy" decoding="async" src="images/09.jpeg" alt="Gallery image 9"/>
               <img class="gallery-item" loading="lazy" decoding="async" src="images/10.jpeg" alt="Gallery image 10"/>
               <img class="gallery-item" loading="lazy" decoding="async" src="images/11.jpeg" alt="Gallery image 11"/>
-            </div>
-            <button class="gallery-btn next" aria-label="Next row 1">&rsaquo;</button>
-          </div>
-          <div class="gallery-wrap" data-row="2">
-            <button class="gallery-btn prev" aria-label="Previous row 2">&lsaquo;</button>
-            <div class="gallery-track">
               <img class="gallery-item" loading="lazy" decoding="async" src="images/12.jpeg" alt="Gallery image 12"/>
               <img class="gallery-item" loading="lazy" decoding="async" src="images/13.jpeg" alt="Gallery image 13"/>
               <img class="gallery-item" loading="lazy" decoding="async" src="images/14.jpeg" alt="Gallery image 14"/>
@@ -168,7 +153,6 @@
               <img class="gallery-item" loading="lazy" decoding="async" src="images/21.jpeg" alt="Gallery image 21"/>
               <img class="gallery-item" loading="lazy" decoding="async" src="images/22.jpeg" alt="Gallery image 22"/>
             </div>
-            <button class="gallery-btn next" aria-label="Next row 2">&rsaquo;</button>
           </div>
         </div>
       </div>
@@ -218,62 +202,6 @@
       if(img.complete) img.classList.add('loaded');
       else img.addEventListener('load', ()=>img.classList.add('loaded'), {once:true});
     });
-
-    // Enable swipe with momentum on each gallery row
-    (function(){
-      const wraps = document.querySelectorAll('.gallery-wrap');
-      wraps.forEach((wrap)=>{
-        const track = wrap.querySelector('.gallery-track');
-        const prev = wrap.querySelector('.gallery-btn.prev');
-        const next = wrap.querySelector('.gallery-btn.next');
-        if (!track) return;
-
-        const gap = 10;
-        const itemWidth = () => track.querySelector('.gallery-item')?.getBoundingClientRect().width || 160;
-        const step = () => itemWidth() + gap;
-
-        prev?.addEventListener('click', ()=> track.scrollBy({left:-step(), behavior:'smooth'}));
-        next?.addEventListener('click', ()=> track.scrollBy({left: step(), behavior:'smooth'}));
-
-        let isDown = false, startX = 0, scrollStart = 0, lastX = 0, lastT = 0, vx = 0, raf = null;
-        const now = () => performance.now();
-
-        function onDown(e){
-          isDown = true; track.classList.add('dragging');
-          startX = (e.touches? e.touches[0].pageX : e.pageX);
-          scrollStart = track.scrollLeft; lastX = startX; lastT = now(); vx = 0;
-          cancelAnimationFrame(raf);
-        }
-        function onMove(e){
-          if(!isDown) return;
-          const x = (e.touches? e.touches[0].pageX : e.pageX);
-          const dx = x - lastX; const dt = Math.max(1, now() - lastT);
-          track.scrollLeft = scrollStart - (x - startX);
-          vx = dx / dt * 16;
-          lastX = x; lastT = now();
-          e.preventDefault();
-        }
-        function onUp(){
-          if(!isDown) return; isDown = false; track.classList.remove('dragging');
-          const decay = 0.95; const minV = 0.2;
-          function stepFrame(){
-            track.scrollLeft -= vx;
-            vx *= decay;
-            if (Math.abs(vx) > minV){ raf = requestAnimationFrame(stepFrame); }
-          }
-          raf = requestAnimationFrame(stepFrame);
-        }
-
-        track.addEventListener('mousedown', onDown, {passive:false});
-        track.addEventListener('mousemove', onMove, {passive:false});
-        window.addEventListener('mouseup', onUp, {passive:true});
-        track.addEventListener('mouseleave', onUp, {passive:true});
-
-        track.addEventListener('touchstart', onDown, {passive:false});
-        track.addEventListener('touchmove', onMove, {passive:false});
-        track.addEventListener('touchend', onUp, {passive:true});
-      });
-    })();
   </script>
 </body>
 </html>
