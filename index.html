@@ -22,9 +22,9 @@
     a{color:inherit; text-decoration:none}
     .container{max-width:1200px; margin:0 auto; padding:0 1.2rem}
     header{position:sticky; top:0; z-index:50; backdrop-filter: blur(10px); background: rgba(11,16,32,.9); border-bottom:1px solid var(--stroke)}
-    .nav{display:flex; align-items:center; justify-content:space-between; padding:1.2rem 0} /* taller nav bar */
-    .brand{display:flex; align-items:center; justify-content:center; flex:1}
-    .logo-text{font-weight:900; font-size:1.3rem; color:var(--fg); text-align:center}
+    .nav{display:flex; flex-direction:column; align-items:center; padding:1rem 0}
+    .brand{margin-bottom:.5rem}
+    .logo-text{font-weight:900; font-size:1.4rem; color:var(--fg); text-align:center}
     nav ul{display:flex; gap:1rem; list-style:none; margin:0; padding:0; overflow:hidden; scrollbar-width:none}
     nav ul::-webkit-scrollbar{display:none}
     nav a{padding:.5rem .8rem; border-radius:10px; color:var(--muted)}
@@ -55,7 +55,11 @@
     footer{border-top:1px solid var(--stroke); padding:1.5rem 0; color:var(--muted)}
 
     /* Mobile hamburger menu */
-    .hamburger{display:none; background:transparent; border:1px solid var(--stroke); border-radius:12px; padding:.6rem; cursor:pointer; margin-left:auto}
+    .hamburger{display:none; background:transparent; border:none; border-radius:8px; padding:.4rem; cursor:pointer; margin:0}
+    .hamburger .bar{display:block; width:22px; height:2px; background:var(--fg); margin:4px 0; border-radius:2px; opacity:.9}
+    .hamburger:active .bar{opacity:1}
+    .hamburger .bar{display:block; width:100%; height:3px; background:var(--fg); border-radius:2px}
+    .hamburger .bar{display:block; width:22px; height:2px; background:var(--fg); margin:3px 0; border-radius:2px}
     .hamburger .bar{display:block; width:22px; height:2px; background:var(--fg); margin:5px 0}
     .mobile-menu{display:none; background:rgba(11,16,32,.98); border-top:1px solid var(--stroke); box-shadow:0 12px 30px rgba(0,0,0,.35); position:relative; z-index:40}
     .mobile-menu a{display:block; padding:.9rem 1.2rem; border-bottom:1px solid var(--stroke); color:var(--fg)}
@@ -63,26 +67,68 @@
     .mobile-menu.open{display:block}
 
     @media (max-width: 768px){
+      /* Single header row: [hamburger] [NNCS centered] */
+      .nav{display:grid; grid-template-columns:auto 1fr; align-items:center; gap:.5rem; padding:.8rem 0}
       .desktop-nav, .desktop-cta{display:none}
-      .hamburger{display:inline-flex}
-      .brand{justify-content:center;}
-      .logo-text{text-align:center; width:100%}
+      .hamburger{display:flex; flex-direction:column; justify-content:center; align-items:center; grid-column:1; grid-row:1}
+      .brand{grid-column:2; grid-row:1; justify-content:center}
+      .logo-text{width:auto; text-align:center; margin:0 auto}
+    }
+      .desktop-nav, .desktop-cta{display:none}
+      .hamburger{display:none; background:transparent; border:none; border-radius:8px; padding:.4rem; cursor:pointer; margin:0}
+    .hamburger .bar{display:block; width:22px; height:2px; background:var(--fg); margin:4px 0; border-radius:2px; opacity:.9}
+    .hamburger:active .bar{opacity:1}
+      .brand{grid-column:2; justify-content:center}
+      .logo-text{width:auto; text-align:center; margin:0 auto}
+    }
+      .hamburger{display:none; background:transparent; border:none; border-radius:8px; padding:.4rem; cursor:pointer; margin:0}
+    .hamburger .bar{display:block; width:22px; height:2px; background:var(--fg); margin:4px 0; border-radius:2px; opacity:.9}
+    .hamburger:active .bar{opacity:1}
+      .brand{text-align:center; width:100%}
     }
     @media (max-width: 640px){
       .cta{font-size:.8rem; padding:.5rem .8rem}
       .gallery-track{grid-template-columns: repeat(2, 1fr)}
     }
     @media (min-width: 1024px){
+      .nav{flex-direction:row; align-items:center; justify-content:space-between}
+      .brand{margin-bottom:0; text-align:left}
       .gallery-track{grid-template-columns: repeat(3, 1fr)}
     }
   /* Mobile: put NNCS on its own line, controls on the next line */
     @media (max-width: 768px){
-      .nav{flex-direction:column; align-items:stretch; justify-content:center; gap:.25rem; padding:.6rem 0}
+      /* Single header row: [hamburger] [NNCS centered] */
+      .nav{display:grid; grid-template-columns:auto 1fr; align-items:center; gap:.5rem; padding:.8rem 0}
+      .desktop-nav, .desktop-cta{display:none}
+      .hamburger{display:flex; flex-direction:column; justify-content:center; align-items:center; grid-column:1; grid-row:1}
+      .brand{grid-column:2; grid-row:1; justify-content:center}
+      .logo-text{width:auto; text-align:center; margin:0 auto}
+    }
       .brand{flex:none; width:100%; justify-content:center}
       .logo-text{width:100%; text-align:center}
-      .hamburger{align-self:flex-end; margin-right:.2rem}
+      .hamburger{display:none; background:transparent; border:none; border-radius:8px; padding:.4rem; cursor:pointer; margin:0}
+    .hamburger .bar{display:block; width:22px; height:2px; background:var(--fg); margin:4px 0; border-radius:2px; opacity:.9}
+    .hamburger:active .bar{opacity:1}
     }
-  <
+  /* Mobile: NNCS and hamburger on the same line */
+    @media (max-width: 768px){
+      /* Single header row: [hamburger] [NNCS centered] */
+      .nav{display:grid; grid-template-columns:auto 1fr; align-items:center; gap:.5rem; padding:.8rem 0}
+      .desktop-nav, .desktop-cta{display:none}
+      .hamburger{display:flex; flex-direction:column; justify-content:center; align-items:center; grid-column:1; grid-row:1}
+      .brand{grid-column:2; grid-row:1; justify-content:center}
+      .logo-text{width:auto; text-align:center; margin:0 auto}
+    }
+      .brand{flex:none;}
+      .logo-text{text-align:left}
+      .hamburger{display:none; background:transparent; border:none; border-radius:8px; padding:.4rem; cursor:pointer; margin:0}
+    .hamburger .bar{display:block; width:22px; height:2px; background:var(--fg); margin:4px 0; border-radius:2px; opacity:.9}
+    .hamburger:active .bar{opacity:1}
+    }
+
+    /* Fix hamburger bars */
+    .hamburger .bar{display:block; width:24px; height:2px; background:var(--fg); margin:5px 0; border-radius:2px}
+  </style>
 </head>
 <body>
   <header>
