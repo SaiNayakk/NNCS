@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>NNCS — Nitish Nayak Consultancy Services</title>
+  <meta name="description" content="NNCS (Nitish Nayak Consultancy Services) helps businesses modernize operations, build scalable systems, and deliver measurable outcomes." />
+  <meta name="theme-color" content="#0f172a" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='0.9em' font-size='80'%3E💼%3C/text%3E%3C/svg%3E"/>
+  <style>
+    :root{
+      --bg: #0b1020; /* deep slate */
+      --bg-2: #0e1428;
+      --fg: #e6e9f0; /* near white */
+      --muted: #a9b1c6; 
+      --brand: #4f46e5; /* indigo */
+      --brand-2: #06b6d4; /* cyan */
+      --card: #121935; 
+      --stroke: rgba(255,255,255,0.08);
+      --success: #16a34a;
+      --warning: #f59e0b;
+      --danger: #ef4444;
+      --radius: 16px;
+      --shadow: 0 10px 30px rgba(0,0,0,.35), 0 2px 6px rgba(0,0,0,.2);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
+      color:var(--fg); background: radial-gradient(1200px 600px at 80% -10%, rgba(79,70,229,.25), transparent 60%), radial-gradient(800px 400px at 10% -10%, rgba(6,182,212,.20), transparent 60%), var(--bg);
+      line-height:1.6; 
+    }
+    a{color:inherit; text-decoration:none}
+    .container{max-width:1200px; margin:0 auto; padding:0 1.2rem}
+    header{position:sticky; top:0; z-index:50; backdrop-filter: blur(10px); background: linear-gradient(to right, rgba(11,16,32,.85), rgba(14,20,40,.65)); border-bottom:1px solid var(--stroke)}
+    .nav{display:flex; align-items:center; justify-content:space-between; padding:.9rem 0}
+    .brand{display:flex; align-items:center; gap:.75rem}
+    .logo{display:grid; place-items:center; width:40px; height:40px; border-radius:12px; background: linear-gradient(135deg, var(--brand), var(--brand-2)); box-shadow:var(--shadow); font-weight:800}
+    .logo span{font-size:1.05rem}
+    .brand h1{font-size:1.05rem; letter-spacing:.04em; margin:0}
+    nav ul{display:flex; gap:1rem; list-style:none; margin:0; padding:0}
+    nav a{padding:.5rem .8rem; border-radius:10px; color:var(--muted)}
+    nav a:hover{background:rgba(255,255,255,.06); color:var(--fg)}
+    .cta{display:inline-flex; align-items:center; gap:.6rem; background:linear-gradient(135deg, var(--brand), var(--brand-2)); color:white; padding:.75rem 1rem; border:none; border-radius:999px; box-shadow:var(--shadow); cursor:pointer; font-weight:700}
+
+    /* Hero */
+    .hero{padding:4.5rem 0 3.5rem; position:relative}
+    .pill{display:inline-flex; gap:.5rem; align-items:center; padding:.35rem .6rem; border:1px solid var(--stroke); color:var(--muted); border-radius:999px; font-size:.85rem; background:rgba(255,255,255,.03)}
+    .grid{display:grid; grid-template-columns: 1.2fr 1fr; gap:2rem; align-items:center}
+    .headline{font-size:clamp(2rem, 5vw, 3.2rem); line-height:1.1; margin:.75rem 0}
+    .sub{color:var(--muted); font-size:1.05rem}
+    .card{
+      background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+      border:1px solid var(--stroke); border-radius:var(--radius); box-shadow:var(--shadow);
+    }
+    .kpis{display:grid; grid-template-columns: repeat(3,1fr); gap:1rem; margin-top:1rem}
+    .kpi{padding:1rem}
+    .kpi h3{margin:.2rem 0; font-size:1.6rem}
+    .kpi p{margin:0; color:var(--muted); font-size:.9rem}
+
+    /* Sections */
+    section{padding:3.5rem 0}
+    .section-title{font-size:1.6rem; margin:0 0 .75rem}
+    .section-sub{margin:0 0 1.6rem; color:var(--muted)}
+
+    .cards{display:grid; grid-template-columns: repeat(3, 1fr); gap:1rem}
+    .service{padding:1.2rem}
+    .service h3{margin:.2rem 0 .4rem; font-size:1.1rem}
+    .service p{margin:0; color:var(--muted)}
+
+    .about{display:grid; grid-template-columns: 1fr 1fr; gap:1.5rem; align-items:start}
+    .about .bullet{display:flex; gap:.8rem; margin:.6rem 0}
+    .about .bullet div{font-weight:700}
+
+    .testimonials{display:grid; grid-template-columns: repeat(3,1fr); gap:1rem}
+    blockquote{margin:0; padding:1rem; font-style:italic; color:#dbe2ff}
+    cite{display:block; margin-top:.6rem; color:var(--muted); font-style:normal}
+
+    .contact-grid{display:grid; grid-template-columns: 1.2fr .8fr; gap:1rem}
+    .contact-card{padding:1.2rem}
+    .contact-item{display:flex; gap:.8rem; align-items:start; padding:.7rem; border-radius:12px; border:1px dashed var(--stroke)}
+    .contact-item b{display:block}
+
+    form{display:grid; gap:.8rem}
+    input, textarea{width:100%; padding:.85rem 1rem; border-radius:12px; border:1px solid var(--stroke); background:#0c142e; color:var(--fg)}
+    textarea{min-height:120px; resize:vertical}
+    .btn-secondary{display:inline-flex; justify-content:center; align-items:center; gap:.5rem; padding:.8rem 1rem; border-radius:12px; border:1px solid var(--stroke); background:rgba(255,255,255,.03); color:var(--fg); cursor:pointer}
+    .btn-secondary:hover{background:rgba(255,255,255,.06)}
+
+    footer{border-top:1px solid var(--stroke); padding:1.5rem 0; color:var(--muted)}
+
+    /* Responsive */
+    @media (max-width: 1000px){
+      .grid{grid-template-columns:1fr}
+      .cards{grid-template-columns:1fr 1fr}
+      .about{grid-template-columns:1fr}
+      .testimonials{grid-template-columns:1fr 1fr}
+      .contact-grid{grid-template-columns:1fr}
+    }
+    @media (max-width: 640px){
+      nav ul{display:none}
+      .cards, .testimonials{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <div class="brand">
+        <div class="logo" aria-hidden="true"><span>NN</span></div>
+        <h1>NNCS</h1>
+      </div>
+      <nav aria-label="Primary">
+        <ul>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#clients">Clients</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+      <a class="cta" href="#contact">Get in touch →</a>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero -->
+    <section class="hero">
+      <div class="container grid">
+        <div>
+          <span class="pill">Nitish Nayak Consultancy Services</span>
+          <h2 class="headline">Build. Scale. Succeed.<br/>Consulting that moves the needle.</h2>
+          <p class="sub">NNCS partners with technology and business leaders to design resilient systems, streamline processes, and deliver outcomes you can measure in weeks—not quarters.</p>
+          <div style="display:flex; gap:.8rem; margin-top:1.2rem">
+            <a class="cta" href="#contact">Book a free consult</a>
+            <a class="btn-secondary" href="#services">Explore services</a>
+          </div>
+        </div>
+        <div class="card" style="padding:1rem">
+          <div class="kpis">
+            <div class="kpi">
+              <h3>99.95%</h3>
+              <p>Uptime architectures</p>
+            </div>
+            <div class="kpi">
+              <h3>10x</h3>
+              <p>Faster delivery cycles</p>
+            </div>
+            <div class="kpi">
+              <h3>₹50Cr+</h3>
+              <p>Value unlocked</p>
+            </div>
+          </div>
+          <div class="card" style="margin-top:1rem; padding:1rem">
+            <p style="margin:.2rem 0 .6rem; color:var(--muted)">What we specialize in</p>
+            <div class="about">
+              <div class="bullet"><div>☁️</div><span>Cloud & Platform Engineering (AWS | Azure | GCP)</span></div>
+              <div class="bullet"><div>🧭</div><span>Technology Strategy & Roadmaps</span></div>
+              <div class="bullet"><div>🔒</div><span>Security, Compliance & Cost Governance</span></div>
+              <div class="bullet"><div>⚙️</div><span>DevOps, SRE & Automation</span></div>
+              <div class="bullet"><div>📈</div><span>Data, Analytics & Modernization</span></div>
+              <div class="bullet"><div>🤝</div><span>Program Management & Change</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Services -->
+    <section id="services">
+      <div class="container">
+        <h2 class="section-title">Services</h2>
+        <p class="section-sub">Engagements tailored to outcomes. Start small, scale with confidence.</p>
+        <div class="cards">
+          <article class="card service">
+            <h3>Architecture & Modernization</h3>
+            <p>Assessments, target blueprints, and reference architectures to migrate or modernize monoliths into secure, scalable services.</p>
+          </article>
+          <article class="card service">
+            <h3>DevOps & SRE</h3>
+            <p>CI/CD, observability, incident response, cost optimization, and reliability engineering aligned to your SLAs and budgets.</p>
+          </article>
+          <article class="card service">
+            <h3>Data & Analytics</h3>
+            <p>Data pipelines, warehousing, and analytics to unlock operational insights and decision support.</p>
+          </article>
+          <article class="card service">
+            <h3>Security & Compliance</h3>
+            <p>Shift-left security, zero-trust architectures, audits, and guardrails that keep you compliant without slowing teams.</p>
+          </article>
+          <article class="card service">
+            <h3>Program Delivery</h3>
+            <p>PMO setup, roadmap execution, and cross-functional leadership to hit milestones predictably.</p>
+          </article>
+          <article class="card service">
+            <h3>Advisory Retainers</h3>
+            <p>On-call CTO/CIO advisory to guide strategy, vendor choices, hiring plans, and governance.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- About -->
+    <section id="about">
+      <div class="container">
+        <h2 class="section-title">About NNCS</h2>
+        <p class="section-sub">Founded by Nitish Nayak, NNCS is a boutique consultancy helping startups and enterprises build robust, scalable systems while keeping costs sane.</p>
+        <div class="about">
+          <div class="card" style="padding:1.2rem">
+            <h3 style="margin-top:0">Our Approach</h3>
+            <ul>
+              <li>Discover: Rapid assessment and value mapping</li>
+              <li>Design: Pragmatic architecture & delivery plan</li>
+              <li>Deliver: Iterative rollouts with strong guardrails</li>
+              <li>Upskill: Enable your teams to own the change</li>
+            </ul>
+          </div>
+          <div class="card" style="padding:1.2rem">
+            <h3 style="margin-top:0">Why NNCS</h3>
+            <ul>
+              <li>Hands-on experts, not just slideware</li>
+              <li>Security and reliability by default</li>
+              <li>Clear ROI, tracked and reported</li>
+              <li>Flexible engagement models</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Clients / Testimonials -->
+    <section id="clients">
+      <div class="container">
+        <h2 class="section-title">What clients say</h2>
+        <p class="section-sub">A few words from teams we’ve partnered with.</p>
+        <div class="testimonials">
+          <div class="card">
+            <blockquote>
+              “NNCS transformed our release pipeline. Deployments went from days to minutes without sacrificing quality.”
+              <cite>— VP Engineering, FinTech</cite>
+            </blockquote>
+          </div>
+          <div class="card">
+            <blockquote>
+              “Their architecture review saved us 30% in cloud costs while improving uptime. Clear, actionable, fast.”
+              <cite>— CTO, HealthTech</cite>
+            </blockquote>
+          </div>
+          <div class="card">
+            <blockquote>
+              “They felt like an extension of our team—pragmatic, reliable, and outcome-focused.”
+              <cite>— Director of Platforms, SaaS</cite>
+            </blockquote>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact">
+      <div class="container">
+        <h2 class="section-title">Get in touch</h2>
+        <p class="section-sub">Tell us about your goals and challenges. We’ll respond within one business day.</p>
+        <div class="contact-grid">
+          <div class="card contact-card">
+            <div class="contact-item">
+              <div>📧</div>
+              <div>
+                <b>Email</b>
+                <a href="mailto:hello@nncs.consulting">hello@nncs.consulting</a>
+              </div>
+            </div>
+            <div class="contact-item">
+              <div>📞</div>
+              <div>
+                <b>Phone / WhatsApp</b>
+                <a href="tel:+919876543210">+91 98765 43210</a>
+              </div>
+            </div>
+            <div class="contact-item">
+              <div>📍</div>
+              <div>
+                <b>Office</b>
+                Bengaluru, Karnataka, India
+              </div>
+            </div>
+            <div class="contact-item">
+              <div>🕘</div>
+              <div>
+                <b>Hours</b>
+                Mon–Fri, 9:00–18:00 IST
+              </div>
+            </div>
+          </div>
+          <div class="card contact-card">
+            <form action="#" method="post" onsubmit="event.preventDefault(); this.reset(); alert('Thanks! We\'ll get back to you shortly.');">
+              <label>
+                <span>Name</span>
+                <input required name="name" placeholder="Your full name" />
+              </label>
+              <label>
+                <span>Email</span>
+                <input required type="email" name="email" placeholder="you@example.com" />
+              </label>
+              <label>
+                <span>Message</span>
+                <textarea required name="message" placeholder="How can we help?"></textarea>
+              </label>
+              <button class="cta" type="submit">Send message</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container" style="display:flex; align-items:center; justify-content:space-between; gap:1rem; flex-wrap:wrap">
+      <div>© <span id="year"></span> NNCS — Nitish Nayak Consultancy Services. All rights reserved.</div>
+      <div style="display:flex; gap:1rem">
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
