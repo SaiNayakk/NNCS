@@ -75,7 +75,14 @@
     @media (min-width: 1024px){
       .gallery-track{grid-template-columns: repeat(3, 1fr)}
     }
-  </style>
+  /* Mobile: put NNCS on its own line, controls on the next line */
+    @media (max-width: 768px){
+      .nav{flex-direction:column; align-items:stretch; justify-content:center; gap:.25rem; padding:.6rem 0}
+      .brand{flex:none; width:100%; justify-content:center}
+      .logo-text{width:100%; text-align:center}
+      .hamburger{align-self:flex-end; margin-right:.2rem}
+    }
+  <
 </head>
 <body>
   <header>
