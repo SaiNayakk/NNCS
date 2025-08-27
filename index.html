@@ -74,6 +74,13 @@
       .headline{font-size:1.6rem}
       .sub{font-size:.9rem}
     }
+  /* Desktop: show exactly 3 images per row at a comfortable size */
+    nav ul{overflow:visible}
+    @media (max-width: 640px){ nav ul{overflow-x:auto} }
+    @media (min-width: 1024px){
+      .gallery-wrap{max-width:780px; margin:0 auto}
+      .gallery-item{flex:0 0 calc((100% - 2rem)/3); max-width: calc((100% - 2rem)/3);} /* 3 tiles with 1rem gaps */
+    }
   </style>
 </head>
 <body>
