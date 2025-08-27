@@ -6,6 +6,8 @@
   <title>NNCS — Nitish Nayak Consultancy Services</title>
   <meta name="description" content="NNCS (Nitish Nayak Consultancy Services) provides professional consultancy services to help businesses streamline operations and grow." />
   <meta name="theme-color" content="#0f172a" />
+  <!-- Favicon as SVG with NNCS text -->
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 128 128'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop stop-color='%234f46e5'/%3E%3Cstop stop-color='%2306b6d4' offset='1'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect rx='28' ry='28' width='128' height='128' fill='url(%23g)'/%3E%3Ctext x='50%25' y='57%25' dominant-baseline='middle' text-anchor='middle' font-family='Segoe UI, Roboto, Arial' font-size='56' fill='white' font-weight='700'%3ENNCS%3C/text%3E%3C/svg%3E"/>
   <style>
     :root{
       --bg: #0b1020;
@@ -24,9 +26,8 @@
     header{position:sticky; top:0; z-index:50; backdrop-filter: blur(10px); background: rgba(11,16,32,.9); border-bottom:1px solid var(--stroke)}
     .nav{display:flex; align-items:center; justify-content:space-between; padding:.9rem 0}
     .brand{display:flex; align-items:center; gap:.75rem}
-    .logo{display:grid; place-items:center; width:40px; height:40px; border-radius:12px; background: linear-gradient(135deg, var(--brand), var(--brand-2)); font-weight:800}
-    .logo span{font-size:1.05rem}
-    .brand h1{font-size:1.05rem; margin:0}
+    .logo-svg{display:block}
+    .sr-only{position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0}
     nav ul{display:flex; gap:1rem; list-style:none; margin:0; padding:0}
     nav a{padding:.5rem .8rem; border-radius:10px; color:var(--muted)}
     nav a:hover{background:rgba(255,255,255,.06); color:var(--fg)}
@@ -43,8 +44,8 @@
     .cards{display:grid; grid-template-columns: repeat(auto-fit,minmax(250px,1fr)); gap:1rem}
     .card{background: rgba(255,255,255,0.03); border:1px solid var(--stroke); border-radius:var(--radius); padding:1.2rem}
 
-    /* Gallery carousel */
-    .gallery-wrapper{overflow:hidden; position:relative}
+    /* Gallery (two rows, horizontal scroll per row) */
+    .gallery-rows{display:flex; flex-direction:column}
     .gallery-wrap{position:relative}
     .gallery-track{display:flex; gap:1rem; overflow-x:auto; scroll-snap-type:x mandatory; -webkit-overflow-scrolling:touch; padding-bottom:.25rem}
     .gallery-track::-webkit-scrollbar{height:8px}
@@ -54,14 +55,6 @@
     .gallery-btn:hover{background:rgba(0,0,0,.55)}
     .gallery-btn.prev{left:-6px}
     .gallery-btn.next{right:-6px}
-    .gallery::-webkit-scrollbar{display:none}
-
-    .gallery-controls{display:flex; justify-content:center; gap:1rem; margin-top:1rem}
-    .gallery-controls button{background:var(--brand); color:#fff; border:none; padding:.5rem 1rem; border-radius:8px; cursor:pointer; box-shadow:var(--shadow)}
-    .gallery-controls button:hover{background:var(--brand-2)}
-
-    .contact-item{display:flex; gap:.8rem; align-items:start; padding:.7rem; border-radius:12px; border:1px dashed var(--stroke); margin-bottom:.5rem}
-    .contact-item b{display:block}
 
     footer{border-top:1px solid var(--stroke); padding:1.5rem 0; color:var(--muted)}
   </style>
@@ -70,7 +63,18 @@
   <header>
     <div class="container nav">
       <div class="brand">
-        <h1>NNCS</h1>
+        <!-- Inline SVG logo with NNCS text -->
+        <svg class="logo-svg" width="160" height="40" viewBox="0 0 320 80" aria-label="NNCS logo" role="img">
+          <defs>
+            <linearGradient id="lg" x1="0" y1="0" x2="1" y2="1">
+              <stop stop-color="#4f46e5"/>
+              <stop offset="1" stop-color="#06b6d4"/>
+            </linearGradient>
+          </defs>
+          <rect x="0" y="0" rx="14" ry="14" width="320" height="80" fill="url(#lg)"/>
+          <text x="50%" y="54%" dominant-baseline="middle" text-anchor="middle" font-size="40" fill="#fff" font-weight="800" font-family="Segoe UI, Roboto, Arial">NNCS</text>
+        </svg>
+        <span class="sr-only">NNCS — Nitish Nayak Consultancy Services</span>
       </div>
       <nav>
         <ul>
@@ -117,18 +121,45 @@
     <section id="gallery">
       <div class="container">
         <h2 class="section-title">Gallery</h2>
-        <p class="section-sub">A glimpse of our work and events.</p>
-        <div class="gallery-wrap">
-          <button class="gallery-btn prev" aria-label="Previous">&lsaquo;</button>
-          <div class="gallery-track">
-            <img class="gallery-item" src="https://via.placeholder.com/800x600" alt="Gallery image 1"/>
-            <img class="gallery-item" src="https://via.placeholder.com/800x600" alt="Gallery image 2"/>
-            <img class="gallery-item" src="https://via.placeholder.com/800x600" alt="Gallery image 3"/>
-            <img class="gallery-item" src="https://via.placeholder.com/800x600" alt="Gallery image 4"/>
-            <img class="gallery-item" src="https://via.placeholder.com/800x600" alt="Gallery image 5"/>
-            <img class="gallery-item" src="https://via.placeholder.com/800x600" alt="Gallery image 6"/>
+        <p class="section-sub">Place your 22 photos in an <code>images/</code> folder and name them <code>01.jpg</code> … <code>22.jpg</code>. Replace formats if needed (e.g., .png, .webp).</p>
+        <div class="gallery-rows">
+          <!-- Row 1: 11 images -->
+          <div class="gallery-wrap" data-row="1">
+            <button class="gallery-btn prev" aria-label="Previous row 1">&lsaquo;</button>
+            <div class="gallery-track">
+              <img class="gallery-item" src="images/01.jpg" alt="Gallery image 1"/>
+              <img class="gallery-item" src="images/02.jpg" alt="Gallery image 2"/>
+              <img class="gallery-item" src="images/03.jpg" alt="Gallery image 3"/>
+              <img class="gallery-item" src="images/04.jpg" alt="Gallery image 4"/>
+              <img class="gallery-item" src="images/05.jpg" alt="Gallery image 5"/>
+              <img class="gallery-item" src="images/06.jpg" alt="Gallery image 6"/>
+              <img class="gallery-item" src="images/07.jpg" alt="Gallery image 7"/>
+              <img class="gallery-item" src="images/08.jpg" alt="Gallery image 8"/>
+              <img class="gallery-item" src="images/09.jpg" alt="Gallery image 9"/>
+              <img class="gallery-item" src="images/10.jpg" alt="Gallery image 10"/>
+              <img class="gallery-item" src="images/11.jpg" alt="Gallery image 11"/>
+            </div>
+            <button class="gallery-btn next" aria-label="Next row 1">&rsaquo;</button>
           </div>
-          <button class="gallery-btn next" aria-label="Next">&rsaquo;</button>
+
+          <!-- Row 2: 11 images -->
+          <div class="gallery-wrap" data-row="2" style="margin-top:1rem">
+            <button class="gallery-btn prev" aria-label="Previous row 2">&lsaquo;</button>
+            <div class="gallery-track">
+              <img class="gallery-item" src="images/12.jpg" alt="Gallery image 12"/>
+              <img class="gallery-item" src="images/13.jpg" alt="Gallery image 13"/>
+              <img class="gallery-item" src="images/14.jpg" alt="Gallery image 14"/>
+              <img class="gallery-item" src="images/15.jpg" alt="Gallery image 15"/>
+              <img class="gallery-item" src="images/16.jpg" alt="Gallery image 16"/>
+              <img class="gallery-item" src="images/17.jpg" alt="Gallery image 17"/>
+              <img class="gallery-item" src="images/18.jpg" alt="Gallery image 18"/>
+              <img class="gallery-item" src="images/19.jpg" alt="Gallery image 19"/>
+              <img class="gallery-item" src="images/20.jpg" alt="Gallery image 20"/>
+              <img class="gallery-item" src="images/21.jpg" alt="Gallery image 21"/>
+              <img class="gallery-item" src="images/22.jpg" alt="Gallery image 22"/>
+            </div>
+            <button class="gallery-btn next" aria-label="Next row 2">&rsaquo;</button>
+          </div>
         </div>
       </div>
     </section>
@@ -172,45 +203,46 @@
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // Gallery carousel: auto-scroll only if overflow exists
+    // Multi-row gallery: set up each row independently, autoplay only if overflow exists
     (function(){
-      const track = document.querySelector('.gallery-track');
-      const prev = document.querySelector('.gallery-btn.prev');
-      const next = document.querySelector('.gallery-btn.next');
-      const wrap = document.querySelector('.gallery-wrap');
-      if(!track) return;
+      const wraps = document.querySelectorAll('.gallery-wrap');
+      wraps.forEach((wrap, idx)=>{
+        const track = wrap.querySelector('.gallery-track');
+        const prev = wrap.querySelector('.gallery-btn.prev');
+        const next = wrap.querySelector('.gallery-btn.next');
+        if(!track) return;
 
-      const itemWidth = () => track.querySelector('.gallery-item')?.getBoundingClientRect().width || 300;
-      const step = () => itemWidth() + 16; // include approximate gap
-      const canScroll = () => track.scrollWidth > track.clientWidth + 5;
+        const itemWidth = () => track.querySelector('.gallery-item')?.getBoundingClientRect().width || 300;
+        const gap = 16; // matches CSS gap ~1rem
+        const step = () => itemWidth() + gap;
+        const canScroll = () => track.scrollWidth > track.clientWidth + 5;
 
-      let autoplayId = null;
-      function startAutoplay(){
-        if(autoplayId || !canScroll()) return;
-        autoplayId = setInterval(()=>{
-          if (track.scrollLeft + track.clientWidth + 5 >= track.scrollWidth){
-            track.scrollTo({left:0, behavior:'smooth'});
-          } else {
-            track.scrollBy({left:step(), behavior:'smooth'});
-          }
-        }, 2500);
-      }
-      function stopAutoplay(){ if(autoplayId){ clearInterval(autoplayId); autoplayId=null; } }
+        let autoplayId = null;
+        const interval = 2400 + (idx*150); // slight stagger between rows
 
-      prev?.addEventListener('click', ()=>{ stopAutoplay(); track.scrollBy({left:-step(), behavior:'smooth'}); });
-      next?.addEventListener('click', ()=>{ stopAutoplay(); track.scrollBy({left: step(), behavior:'smooth'}); });
+        function startAutoplay(){
+          if(autoplayId || !canScroll()) return;
+          autoplayId = setInterval(()=>{
+            if (track.scrollLeft + track.clientWidth + 5 >= track.scrollWidth){
+              track.scrollTo({left:0, behavior:'smooth'});
+            } else {
+              track.scrollBy({left:step(), behavior:'smooth'});
+            }
+          }, interval);
+        }
+        function stopAutoplay(){ if(autoplayId){ clearInterval(autoplayId); autoplayId=null; } }
 
-      // Pause on hover for desktop
-      wrap?.addEventListener('mouseenter', stopAutoplay);
-      wrap?.addEventListener('mouseleave', ()=>{ if(canScroll()) startAutoplay(); });
+        prev?.addEventListener('click', ()=>{ stopAutoplay(); track.scrollBy({left:-step(), behavior:'smooth'}); });
+        next?.addEventListener('click', ()=>{ stopAutoplay(); track.scrollBy({left: step(), behavior:'smooth'}); });
 
-      // Start autoplay only when overflow exists
-      if (canScroll()) startAutoplay();
+        wrap?.addEventListener('mouseenter', stopAutoplay);
+        wrap?.addEventListener('mouseleave', ()=>{ if(canScroll()) startAutoplay(); });
 
-      // Re-evaluate on resize
-      window.addEventListener('resize', ()=>{
-        if (!autoplayId && canScroll()) startAutoplay();
-        if (autoplayId && !canScroll()) stopAutoplay();
+        if (canScroll()) startAutoplay();
+        window.addEventListener('resize', ()=>{
+          if (!autoplayId && canScroll()) startAutoplay();
+          if (autoplayId && !canScroll()) stopAutoplay();
+        });
       });
     })();
   </script>
