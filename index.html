@@ -22,169 +22,63 @@
     a{color:inherit; text-decoration:none}
     .container{max-width:1200px; margin:0 auto; padding:0 1.2rem}
     header{position:sticky; top:0; z-index:50; backdrop-filter: blur(10px); background: rgba(11,16,32,.9); border-bottom:1px solid var(--stroke)}
-    .nav{display:flex; flex-direction:column; align-items:center; padding:1rem 0}
-    .brand{margin-bottom:.5rem}
-    .logo-text{font-weight:900; font-size:1.4rem; color:var(--fg); text-align:center}
-    nav ul{display:flex; gap:1rem; list-style:none; margin:0; padding:0; overflow:hidden; scrollbar-width:none}
-    nav ul::-webkit-scrollbar{display:none}
-    nav a{padding:.5rem .8rem; border-radius:10px; color:var(--muted)}
-    nav a:hover{background:rgba(255,255,255,.06); color:var(--fg)}
-    .cta{display:inline-flex; align-items:center; gap:.6rem; background:linear-gradient(135deg, var(--brand), var(--brand-2)); color:white; padding:.65rem .9rem; border:none; border-radius:999px; box-shadow:var(--shadow); cursor:pointer; font-weight:700; white-space:nowrap; font-size:.9rem}
+    .nav{display:grid; grid-template-columns:auto 1fr auto; align-items:center; gap:.75rem; padding:1rem 0; position:relative}
+    .brand{justify-self:center}
+    .right-slot{display:flex; align-items:center; gap:1rem}
+    .desktop-nav ul{display:flex; gap:1rem; list-style:none; margin:0; padding:0}
+    .desktop-nav ul::-webkit-scrollbar{display:none}
+    .brand{font-weight:900; font-size:1.3rem; color:var(--fg); text-align:center}
 
-    .hero{padding:3rem 0 2rem}
-    .headline{font-size:clamp(1.8rem, 5vw, 2.8rem); line-height:1.2; margin:.75rem 0}
-    .sub{color:var(--muted); font-size:1rem}
+    /* Hamburger */
+    .hamburger{background:transparent; border:none; padding:.5rem; cursor:pointer; display:flex; flex-direction:column; justify-content:center; align-items:center; gap:4px; border-radius:8px; color:var(--fg); z-index:60}
+    .hamburger .bar{width:22px; height:2px; background:currentColor; border-radius:2px; opacity:.95}
+    .hamburger:focus{outline:2px solid var(--stroke); outline-offset:2px}
+    .hamburger .bar{width:24px; height:2px; background:var(--fg); margin:4px 0; border-radius:2px}
 
-    section{padding:3rem 0}
-    .section-title{font-size:1.6rem; margin:0 0 .75rem}
-    .section-sub{margin:0 0 1.6rem; color:var(--muted)}
-
-    .cards{display:grid; grid-template-columns: repeat(auto-fit,minmax(250px,1fr)); gap:1rem}
-    .card{background: rgba(255,255,255,0.03); border:1px solid var(--stroke); border-radius:var(--radius); padding:1.2rem}
-
-    /* Gallery */
-    .gallery-rows{display:flex; flex-direction:column; gap:1rem}
-    .gallery-wrap{position:relative; max-width:900px; margin:0 auto}
-    .gallery-track{display:grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap:1rem}
-    .gallery-item{width:100%; aspect-ratio:4/3; border-radius:12px; object-fit:cover; object-position:center; border:1px solid var(--stroke); background:rgba(255,255,255,.04); filter:blur(12px); transform:scale(1.03); transition:filter .4s ease, transform .4s ease}
-    .gallery-item.loaded{filter:blur(0); transform:none}
-
-    .contact-item{display:flex; gap:.8rem; align-items:start; padding:.7rem; border-radius:12px; border:1px dashed var(--stroke); margin-bottom:.5rem}
-    .contact-item b{display:block}
-
-    footer{border-top:1px solid var(--stroke); padding:1.5rem 0; color:var(--muted)}
-
-    /* Mobile hamburger menu */
-    .hamburger{display:none; background:transparent; border:none; border-radius:8px; padding:.6rem; cursor:pointer; margin:0; color:var(--fg); z-index:60}
-    .hamburger .bar{display:block; width:24px; height:2px; background:currentColor; margin:4px 0; border-radius:2px; opacity:.95}
-    .hamburger:active .bar{opacity:1}
-    .hamburger .bar{display:block; width:22px; height:2px; background:var(--fg); margin:4px 0; border-radius:2px; opacity:.9}
-    .hamburger:active .bar{opacity:1}
-    .hamburger .bar{display:block; width:100%; height:3px; background:var(--fg); border-radius:2px}
-    .hamburger .bar{display:block; width:22px; height:2px; background:var(--fg); margin:3px 0; border-radius:2px}
-    .hamburger .bar{display:block; width:22px; height:2px; background:var(--fg); margin:5px 0}
+    /* Mobile menu */
     .mobile-menu{display:none; background:rgba(11,16,32,.98); border-top:1px solid var(--stroke); box-shadow:0 12px 30px rgba(0,0,0,.35); position:relative; z-index:40}
     .mobile-menu a{display:block; padding:.9rem 1.2rem; border-bottom:1px solid var(--stroke); color:var(--fg)}
     .mobile-menu a:last-child{border-bottom:none}
     .mobile-menu.open{display:block}
 
     @media (max-width: 768px){
-      /* One-row mobile header: NNCS centered, hamburger pinned left */
-      .nav{position:relative; display:flex; align-items:center; justify-content:center; padding:.85rem 0}
       .desktop-nav, .desktop-cta{display:none}
-      .brand{flex:0 1 auto; width:100%; display:flex; justify-content:center}
-      .logo-text{text-align:center; margin:0 auto}
-      .hamburger{display:flex; position:absolute; left:12px; top:50%; transform:translateY(-50%);}
+      .mobile-menu.open{display:block}
+      .cta{font-size:.85rem; padding:.5rem .8rem}
     }
-      .desktop-nav, .desktop-cta{display:none}
-      .hamburger{display:none; background:transparent; border:none; border-radius:8px; padding:.6rem; cursor:pointer; margin:0; color:var(--fg); z-index:60}
-    .hamburger .bar{display:block; width:24px; height:2px; background:currentColor; margin:4px 0; border-radius:2px; opacity:.95}
-    .hamburger:active .bar{opacity:1}
-      .brand{grid-column:2; grid-row:1; justify-content:center}
-      .logo-text{width:auto; text-align:center; margin:0 auto}
+      .hamburger{background:transparent; border:none; padding:.5rem; cursor:pointer; display:flex; flex-direction:column; justify-content:center; align-items:center; gap:4px; border-radius:8px; color:var(--fg); z-index:60}
+    .hamburger .bar{width:22px; height:2px; background:currentColor; border-radius:2px; opacity:.95}
+    .hamburger:focus{outline:2px solid var(--stroke); outline-offset:2px}
     }
-      .desktop-nav, .desktop-cta{display:none}
-      .hamburger{display:none; background:transparent; border:none; border-radius:8px; padding:.6rem; cursor:pointer; margin:0; color:var(--fg); z-index:60}
-    .hamburger .bar{display:block; width:24px; height:2px; background:currentColor; margin:4px 0; border-radius:2px; opacity:.95}
-    .hamburger:active .bar{opacity:1}
-    .hamburger .bar{display:block; width:22px; height:2px; background:var(--fg); margin:4px 0; border-radius:2px; opacity:.9}
-    .hamburger:active .bar{opacity:1}
-      .brand{grid-column:2; justify-content:center}
-      .logo-text{width:auto; text-align:center; margin:0 auto}
-    }
-      .hamburger{display:none; background:transparent; border:none; border-radius:8px; padding:.6rem; cursor:pointer; margin:0; color:var(--fg); z-index:60}
-    .hamburger .bar{display:block; width:24px; height:2px; background:currentColor; margin:4px 0; border-radius:2px; opacity:.95}
-    .hamburger:active .bar{opacity:1}
-    .hamburger .bar{display:block; width:22px; height:2px; background:var(--fg); margin:4px 0; border-radius:2px; opacity:.9}
-    .hamburger:active .bar{opacity:1}
-      .brand{text-align:center; width:100%}
-    }
-    @media (max-width: 640px){
-      .cta{font-size:.8rem; padding:.5rem .8rem}
-      .gallery-track{grid-template-columns: repeat(2, 1fr)}
-    }
-    @media (min-width: 1024px){
-      .nav{flex-direction:row; align-items:center; justify-content:space-between}
-      .brand{margin-bottom:0; text-align:left}
-      .gallery-track{grid-template-columns: repeat(3, 1fr)}
-    }
-  /* Mobile: put NNCS on its own line, controls on the next line */
-    @media (max-width: 768px){
-      /* One-row mobile header: NNCS centered, hamburger pinned left */
-      .nav{position:relative; display:flex; align-items:center; justify-content:center; padding:.85rem 0}
-      .desktop-nav, .desktop-cta{display:none}
-      .brand{flex:0 1 auto; width:100%; display:flex; justify-content:center}
-      .logo-text{text-align:center; margin:0 auto}
-      .hamburger{display:flex; position:absolute; left:12px; top:50%; transform:translateY(-50%);}
-    }
-      .desktop-nav, .desktop-cta{display:none}
-      .hamburger{display:none; background:transparent; border:none; border-radius:8px; padding:.6rem; cursor:pointer; margin:0; color:var(--fg); z-index:60}
-    .hamburger .bar{display:block; width:24px; height:2px; background:currentColor; margin:4px 0; border-radius:2px; opacity:.95}
-    .hamburger:active .bar{opacity:1}
-      .brand{grid-column:2; grid-row:1; justify-content:center}
-      .logo-text{width:auto; text-align:center; margin:0 auto}
-    }
-      .brand{flex:none; width:100%; justify-content:center}
-      .logo-text{width:100%; text-align:center}
-      .hamburger{display:none; background:transparent; border:none; border-radius:8px; padding:.6rem; cursor:pointer; margin:0; color:var(--fg); z-index:60}
-    .hamburger .bar{display:block; width:24px; height:2px; background:currentColor; margin:4px 0; border-radius:2px; opacity:.95}
-    .hamburger:active .bar{opacity:1}
-    .hamburger .bar{display:block; width:22px; height:2px; background:var(--fg); margin:4px 0; border-radius:2px; opacity:.9}
-    .hamburger:active .bar{opacity:1}
-    }
-  /* Mobile: NNCS and hamburger on the same line */
-    @media (max-width: 768px){
-      /* One-row mobile header: NNCS centered, hamburger pinned left */
-      .nav{position:relative; display:flex; align-items:center; justify-content:center; padding:.85rem 0}
-      .desktop-nav, .desktop-cta{display:none}
-      .brand{flex:0 1 auto; width:100%; display:flex; justify-content:center}
-      .logo-text{text-align:center; margin:0 auto}
-      .hamburger{display:flex; position:absolute; left:12px; top:50%; transform:translateY(-50%);}
-    }
-      .desktop-nav, .desktop-cta{display:none}
-      .hamburger{display:none; background:transparent; border:none; border-radius:8px; padding:.6rem; cursor:pointer; margin:0; color:var(--fg); z-index:60}
-    .hamburger .bar{display:block; width:24px; height:2px; background:currentColor; margin:4px 0; border-radius:2px; opacity:.95}
-    .hamburger:active .bar{opacity:1}
-      .brand{grid-column:2; grid-row:1; justify-content:center}
-      .logo-text{width:auto; text-align:center; margin:0 auto}
-    }
-      .brand{flex:none;}
-      .logo-text{text-align:left}
-      .hamburger{display:none; background:transparent; border:none; border-radius:8px; padding:.6rem; cursor:pointer; margin:0; color:var(--fg); z-index:60}
-    .hamburger .bar{display:block; width:24px; height:2px; background:currentColor; margin:4px 0; border-radius:2px; opacity:.95}
-    .hamburger:active .bar{opacity:1}
-    .hamburger .bar{display:block; width:22px; height:2px; background:var(--fg); margin:4px 0; border-radius:2px; opacity:.9}
-    .hamburger:active .bar{opacity:1}
-    }
-
-    /* Fix hamburger bars */
-    .hamburger .bar{display:block; width:24px; height:2px; background:var(--fg); margin:5px 0; border-radius:2px}
+  /* Ensure brand centered on all sizes */
+    .brand .logo-text{font-weight:900; font-size:1.3rem; color:var(--fg); text-align:center}
   </style>
 </head>
 <body>
   <header>
     <div class="container nav">
-      <div class="brand">
-        <div class="logo-text">NNCS</div>
-      </div>
-
-      <!-- Mobile menu button -->
+      <!-- Left: Hamburger -->
       <button class="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
         <span class="bar"></span>
         <span class="bar"></span>
         <span class="bar"></span>
       </button>
 
-      <!-- Desktop nav -->
-      <nav class="desktop-nav">
-        <ul>
-          <li><a href="#services">Services</a></li>
-          <li><a href="#about">About</a></li>
-          <li><a href="#gallery">Gallery</a></li>
-          <li><a href="#contact">Contact</a></li>
-        </ul>
-      </nav>
-      <a class="cta desktop-cta" href="#contact">Get in touch →</a>
+      <!-- Center: Brand -->
+      <div class="brand"><div class="logo-text">NNCS</div></div>
+
+      <!-- Right: Desktop nav + CTA -->
+      <div class="right-slot">
+        <nav class="desktop-nav">
+          <ul>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#gallery">Gallery</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </nav>
+        <a class="cta desktop-cta" href="#contact">Get in touch →</a>
+      </div>
     </div>
 
     <!-- Mobile dropdown menu -->
