@@ -4,178 +4,824 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>NNCS — Nitish Nayak Consultancy Services</title>
-  <meta name="description" content="NNCS (Nitish Nayak Consultancy Services) provides professional consultancy services to help businesses streamline operations and grow." />
-  <meta name="theme-color" content="#0f172a" />
+  <meta name="description" content="NNCS provides professional consultancy services to help businesses streamline operations and grow." />
+  <meta name="theme-color" content="#060818" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet" />
   <style>
-    :root{
-      --bg: #0b1020;
-      --fg: #e6e9f0;
-      --muted: #a9b1c6; 
-      --brand: #4f46e5;
-      --brand-2: #06b6d4;
-      --stroke: rgba(255,255,255,0.08);
-      --radius: 16px;
-      --shadow: 0 10px 30px rgba(0,0,0,.35), 0 2px 6px rgba(0,0,0,.2);
+    :root {
+      --bg: #060818;
+      --bg2: #0d1128;
+      --fg: #eef0f8;
+      --muted: #8892aa;
+      --purple: #7c3aed;
+      --cyan: #06b6d4;
+      --pink: #ec4899;
+      --grad: linear-gradient(135deg, var(--purple), var(--cyan));
+      --grad2: linear-gradient(135deg, var(--pink), var(--purple));
+      --stroke: rgba(255,255,255,0.07);
+      --radius: 18px;
+      --glass: rgba(255,255,255,0.04);
     }
-    *{box-sizing:border-box}
-    body{margin:0; font-family: ui-sans-serif, system-ui; color:var(--fg); background: var(--bg); line-height:1.6; }
-    a{color:inherit; text-decoration:none}
-    .container{max-width:1200px; margin:0 auto; padding:0 1.2rem}
-    header{position:sticky; top:0; z-index:50; backdrop-filter: blur(10px); background: rgba(11,16,32,.9); border-bottom:1px solid var(--stroke)}
-    .nav{display:grid; grid-template-columns:1fr auto 1fr; align-items:center; padding:1rem 0}
-    .brand{grid-column:2; justify-self:center; font-weight:900; font-size:1.3rem; color:var(--fg)}
-    .header-cta{grid-column:3; justify-self:end}
-    .cta{display:inline-flex; align-items:center; gap:.6rem; background:linear-gradient(135deg, var(--brand), var(--brand-2)); color:white; padding:.65rem .9rem; border:none; border-radius:999px; box-shadow:var(--shadow); cursor:pointer; font-weight:700; white-space:nowrap; font-size:.9rem}
-
-    .hero{padding:3rem 0 2rem}
-    .headline{font-size:clamp(1.8rem, 5vw, 2.8rem); line-height:1.2; margin:.75rem 0}
-    .sub{color:var(--muted); font-size:1rem}
-
-    section{padding:3rem 0}
-    .section-title{font-size:1.6rem; margin:0 0 .75rem}
-    .section-sub{margin:0 0 1.6rem; color:var(--muted)}
-
-    .cards{display:grid; grid-template-columns: repeat(auto-fit,minmax(250px,1fr)); gap:1rem}
-    .card{background: rgba(255,255,255,0.03); border:1px solid var(--stroke); border-radius:var(--radius); padding:1.2rem}
-
-    /* Gallery */
-    .gallery-rows{display:flex; flex-direction:column; gap:1rem}
-    .gallery-wrap{position:relative; max-width:900px; margin:0 auto}
-    .gallery-track{display:grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap:1rem}
-    .gallery-item{width:100%; aspect-ratio:4/3; border-radius:12px; object-fit:cover; object-position:center; border:1px solid var(--stroke); background:rgba(255,255,255,.04); filter:blur(12px); transform:scale(1.03); transition:filter .4s ease, transform .4s ease}
-    .gallery-item.loaded{filter:blur(0); transform:none}
-
-    .contact-item{display:flex; gap:.8rem; align-items:start; padding:.7rem; border-radius:12px; border:1px dashed var(--stroke); margin-bottom:.5rem}
-    .contact-item b{display:block}
-
-    footer{border-top:1px solid var(--stroke); padding:1.5rem 0; color:var(--muted)}
-
-    @media (max-width: 640px){
-      .cta{font-size:.8rem; padding:.5rem .8rem}
-      .gallery-track{grid-template-columns: repeat(2, 1fr)}
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', ui-sans-serif, system-ui;
+      background: var(--bg);
+      color: var(--fg);
+      line-height: 1.65;
+      overflow-x: hidden;
     }
-    @media (min-width: 1024px){
-      .gallery-track{grid-template-columns: repeat(3, 1fr)}
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+
+    /* ── Scroll progress ── */
+    #progress {
+      position: fixed; top: 0; left: 0; height: 3px; width: 0%;
+      background: var(--grad); z-index: 200;
+      transition: width .1s linear;
+      box-shadow: 0 0 12px var(--cyan);
+    }
+
+    /* ── Background orbs ── */
+    .orbs {
+      position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden;
+    }
+    .orb {
+      position: absolute; border-radius: 50%;
+      filter: blur(80px); opacity: .18;
+      animation: drift 18s ease-in-out infinite alternate;
+    }
+    .orb1 { width: 600px; height: 600px; background: var(--purple); top: -10%; left: -15%; animation-duration: 20s; }
+    .orb2 { width: 500px; height: 500px; background: var(--cyan); bottom: 10%; right: -10%; animation-duration: 26s; animation-delay: -8s; }
+    .orb3 { width: 350px; height: 350px; background: var(--pink); top: 50%; left: 40%; animation-duration: 22s; animation-delay: -4s; }
+    @keyframes drift {
+      from { transform: translate(0, 0) scale(1); }
+      to   { transform: translate(40px, -60px) scale(1.08); }
+    }
+
+    /* ── Layout ── */
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; position: relative; z-index: 1; }
+
+    /* ── Nav ── */
+    header {
+      position: sticky; top: 0; z-index: 100;
+      backdrop-filter: blur(18px) saturate(180%);
+      -webkit-backdrop-filter: blur(18px) saturate(180%);
+      background: rgba(6,8,24,0.75);
+      border-bottom: 1px solid var(--stroke);
+      transition: box-shadow .3s;
+    }
+    header.scrolled { box-shadow: 0 4px 40px rgba(0,0,0,.5); }
+    nav {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: .9rem 0;
+    }
+    .brand {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700; font-size: 1.35rem; letter-spacing: -.02em;
+    }
+    .brand span { background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .nav-links { display: flex; gap: 2rem; }
+    .nav-links a {
+      font-size: .9rem; font-weight: 500; color: var(--muted);
+      transition: color .2s;
+      position: relative;
+    }
+    .nav-links a::after {
+      content: ''; position: absolute; bottom: -3px; left: 0; right: 0;
+      height: 2px; background: var(--grad); border-radius: 2px;
+      transform: scaleX(0); transition: transform .25s;
+    }
+    .nav-links a:hover { color: var(--fg); }
+    .nav-links a:hover::after { transform: scaleX(1); }
+    .btn {
+      display: inline-flex; align-items: center; gap: .5rem;
+      padding: .6rem 1.3rem; border-radius: 999px;
+      font-weight: 700; font-size: .88rem; cursor: pointer; border: none;
+      background: var(--grad); color: #fff;
+      box-shadow: 0 4px 20px rgba(124,58,237,.4);
+      transition: transform .2s, box-shadow .2s, opacity .2s;
+    }
+    .btn:hover { transform: translateY(-3px) scale(1.04); box-shadow: 0 10px 36px rgba(124,58,237,.65), 0 0 0 1px rgba(255,255,255,.15); }
+    .btn:active { transform: translateY(0); }
+    @media (max-width: 640px) { .nav-links { display: none; } }
+
+    /* ── Hero ── */
+    .hero {
+      min-height: 90vh; display: flex; align-items: center;
+      padding: 5rem 0 4rem;
+    }
+    .hero-inner { max-width: 750px; }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: .5rem;
+      background: rgba(124,58,237,.15); border: 1px solid rgba(124,58,237,.3);
+      padding: .35rem .9rem; border-radius: 999px;
+      font-size: .8rem; font-weight: 600; color: #a78bfa;
+      margin-bottom: 1.5rem;
+    }
+    .hero-badge .dot {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: #a78bfa;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%       { opacity: .5; transform: scale(.8); }
+    }
+    h1 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(2.6rem, 6vw, 4.2rem);
+      line-height: 1.1; font-weight: 700; letter-spacing: -.03em;
+      margin-bottom: 1.2rem;
+    }
+    .grad-text { background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .hero p {
+      color: var(--muted); font-size: 1.1rem; max-width: 560px;
+      margin-bottom: 2rem;
+    }
+    .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn-outline {
+      display: inline-flex; align-items: center; gap: .5rem;
+      padding: .6rem 1.3rem; border-radius: 999px;
+      font-weight: 600; font-size: .88rem; cursor: pointer;
+      background: transparent;
+      border: 1px solid var(--stroke);
+      color: var(--fg);
+      transition: border-color .2s, background .2s;
+    }
+    .btn-outline:hover { border-color: rgba(255,255,255,.25); background: var(--glass); }
+
+    /* ── Stats ── */
+    .stats {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 1px; background: var(--stroke);
+      border: 1px solid var(--stroke); border-radius: var(--radius);
+      overflow: hidden; margin-top: 4rem;
+    }
+    @media (max-width: 600px) {
+      .stats { grid-template-columns: repeat(2, 1fr); }
+    }
+    .stat {
+      background: var(--bg); padding: 1.5rem;
+      text-align: center;
+    }
+    .stat-num {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 2rem; font-weight: 700;
+      background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .stat-label { font-size: .8rem; color: var(--muted); margin-top: .2rem; }
+
+    /* ── Section shared ── */
+    section { padding: 5rem 0; content-visibility: auto; }
+    .section-eyebrow {
+      font-size: .75rem; font-weight: 700; letter-spacing: .12em;
+      text-transform: uppercase; color: #a78bfa;
+      margin-bottom: .6rem;
+    }
+    h2 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(1.8rem, 4vw, 2.4rem);
+      font-weight: 700; letter-spacing: -.025em;
+      margin-bottom: .75rem;
+    }
+    .section-sub { color: var(--muted); max-width: 520px; }
+
+    /* ── Services ── */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5px; background: var(--stroke);
+      border: 1px solid var(--stroke); border-radius: var(--radius);
+      overflow: hidden; margin-top: 2.5rem;
+    }
+    .service-card {
+      background: var(--bg);
+      padding: 2rem 1.8rem;
+      transition: background .25s;
+      cursor: default;
+    }
+    .service-card:hover { background: var(--bg2); box-shadow: inset 0 0 60px rgba(124,58,237,.08); }
+    .service-icon {
+      width: 48px; height: 48px; border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem; margin-bottom: 1.2rem;
+    }
+    .service-card h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.1rem; font-weight: 700;
+      margin-bottom: .5rem;
+    }
+    .service-card p { color: var(--muted); font-size: .92rem; }
+    .arrow {
+      display: inline-block; margin-top: 1rem;
+      font-size: .85rem; color: #a78bfa;
+      font-weight: 600;
+      transition: transform .2s;
+    }
+    .service-card:hover .arrow { transform: translateX(4px); }
+
+    /* ── About ── */
+    .about-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 3rem; align-items: center;
+    }
+    @media (max-width: 768px) { .about-grid { grid-template-columns: 1fr; } }
+    .about-text p { color: var(--muted); margin-bottom: 1rem; }
+    .value-list { list-style: none; display: flex; flex-direction: column; gap: .6rem; margin-top: 1.2rem; }
+    .value-list li {
+      display: flex; align-items: center; gap: .75rem;
+      font-size: .92rem;
+    }
+    .value-list li::before {
+      content: ''; width: 8px; height: 8px; border-radius: 50%;
+      background: var(--grad); flex-shrink: 0;
+    }
+    .about-card {
+      background: var(--glass);
+      border: 1px solid var(--stroke);
+      border-radius: var(--radius);
+      padding: 2rem;
+    }
+    .about-card-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700; font-size: 1.1rem;
+      margin-bottom: 1rem; color: var(--fg);
+    }
+    .tag-list { display: flex; flex-wrap: wrap; gap: .5rem; }
+    .tag {
+      background: rgba(124,58,237,.15);
+      border: 1px solid rgba(124,58,237,.2);
+      color: #c4b5fd; font-size: .78rem; font-weight: 600;
+      padding: .3rem .75rem; border-radius: 999px;
+    }
+
+    /* ── Gallery ── */
+    .gallery-grid {
+      columns: 3; column-gap: 1rem;
+      margin-top: 2.5rem;
+    }
+    @media (max-width: 900px) { .gallery-grid { columns: 2; } }
+    @media (max-width: 500px) { .gallery-grid { columns: 2; } }
+    .gal-item {
+      break-inside: avoid;
+      margin-bottom: 1rem;
+      border-radius: 12px; overflow: hidden;
+      cursor: pointer; position: relative;
+    }
+    .gal-item img {
+      width: 100%; display: block;
+      filter: blur(10px); transform: scale(1.04);
+      transition: filter .4s ease, transform .4s ease;
+    }
+    .gal-item img.loaded { filter: none; transform: none; }
+    .gal-overlay {
+      position: absolute; inset: 0;
+      background: rgba(6,8,24,.55);
+      opacity: 0; transition: opacity .25s;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .gal-overlay svg { color: #fff; width: 32px; height: 32px; }
+    .gal-item:hover .gal-overlay { opacity: 1; }
+    .gal-item:hover img { transform: scale(1.06); }
+
+    /* ── Lightbox ── */
+    #lightbox {
+      position: fixed; inset: 0; z-index: 500;
+      background: rgba(6,8,24,.95);
+      backdrop-filter: blur(20px);
+      display: none; align-items: center; justify-content: center;
+      padding: 1.5rem;
+    }
+    #lightbox.open { display: flex; }
+    #lightbox img {
+      max-width: min(90vw, 900px);
+      max-height: 90vh;
+      border-radius: 12px;
+      box-shadow: 0 30px 80px rgba(0,0,0,.7);
+      object-fit: contain;
+    }
+    #lb-close {
+      position: absolute; top: 1.5rem; right: 1.5rem;
+      background: var(--glass); border: 1px solid var(--stroke);
+      color: var(--fg); width: 44px; height: 44px;
+      border-radius: 50%; cursor: pointer;
+      font-size: 1.3rem; display: flex; align-items: center; justify-content: center;
+      transition: background .2s;
+    }
+    #lb-close:hover { background: rgba(255,255,255,.1); }
+    #lb-prev, #lb-next {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      background: var(--glass); border: 1px solid var(--stroke);
+      color: var(--fg); width: 48px; height: 48px;
+      border-radius: 50%; cursor: pointer;
+      font-size: 1.3rem; display: flex; align-items: center; justify-content: center;
+      transition: background .2s;
+    }
+    #lb-prev { left: 1.5rem; }
+    #lb-next { right: 1.5rem; }
+    #lb-prev:hover, #lb-next:hover { background: rgba(255,255,255,.1); }
+
+    /* ── Contact ── */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem; margin-top: 2.5rem;
+    }
+    @media (max-width: 768px) { .contact-grid { grid-template-columns: 1fr; } }
+    .contact-items { display: flex; flex-direction: column; gap: 1rem; }
+    .contact-row {
+      display: flex; align-items: center; gap: 1rem;
+      padding: 1.1rem 1.3rem;
+      background: var(--glass); border: 1px solid var(--stroke);
+      border-radius: 14px;
+      transition: border-color .2s, background .2s;
+    }
+    .contact-row:hover { border-color: rgba(124,58,237,.7); background: rgba(124,58,237,.1); box-shadow: 0 0 20px rgba(124,58,237,.2); transform: translateX(4px); }
+    .contact-icon {
+      width: 42px; height: 42px; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem; flex-shrink: 0;
+      background: rgba(124,58,237,.15);
+    }
+    .contact-row b { display: block; font-size: .82rem; color: var(--muted); font-weight: 500; margin-bottom: .15rem; }
+    .contact-row a, .contact-row span { font-size: .95rem; font-weight: 500; }
+    .contact-row a { color: #a78bfa; }
+    .contact-row a:hover { text-decoration: underline; }
+    .map-placeholder {
+      border-radius: var(--radius); overflow: hidden;
+      border: 1px solid var(--stroke);
+      background: var(--bg2);
+      min-height: 280px; display: flex; align-items: center; justify-content: center;
+      flex-direction: column; gap: .8rem; color: var(--muted);
+    }
+    .map-placeholder .pin { font-size: 2.5rem; }
+    .map-placeholder p { font-size: .9rem; text-align: center; padding: 0 2rem; }
+
+    /* ── Footer ── */
+    footer {
+      border-top: 1px solid var(--stroke);
+      padding: 2rem 0;
+    }
+    .footer-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 1rem;
+    }
+    .footer-links { display: flex; gap: 1.5rem; }
+    .footer-links a { color: var(--muted); font-size: .85rem; transition: color .2s; }
+    .footer-links a:hover { color: var(--fg); }
+    .footer-copy { color: var(--muted); font-size: .85rem; }
+
+    /* ── Scroll reveal ── */
+    .reveal {
+      opacity: 0; transform: translateY(28px);
+      transition: opacity .6s ease, transform .6s ease;
+    }
+    .reveal.visible { opacity: 1; transform: none; }
+    .reveal-delay-1 { transition-delay: .1s; }
+    .reveal-delay-2 { transition-delay: .2s; }
+    .reveal-delay-3 { transition-delay: .3s; }
+
+    /* ── Animated gradient text ── */
+    .grad-text {
+      background: linear-gradient(90deg, var(--purple), var(--cyan), var(--pink), var(--purple));
+      background-size: 300% 100%;
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      animation: gradShift 5s linear infinite;
+    }
+    @keyframes gradShift {
+      0%   { background-position: 0% 50%; }
+      100% { background-position: 300% 50%; }
+    }
+
+    /* ── Cursor spotlight ── */
+    #spotlight {
+      position: fixed; inset: 0; pointer-events: none; z-index: 0;
+      background: radial-gradient(400px circle at -999px -999px, rgba(124,58,237,.22), transparent 65%);
+    }
+
+    /* ── Shimmer on stat numbers ── */
+    .stat-num {
+      position: relative; overflow: hidden;
+    }
+    .stat-num::after {
+      content: '';
+      position: absolute; top: 0; left: -75%;
+      width: 50%; height: 100%;
+      background: linear-gradient(120deg, transparent 20%, rgba(255,255,255,.35) 50%, transparent 80%);
+      animation: shimmer 3s infinite;
+      pointer-events: none;
+    }
+    @keyframes shimmer {
+      0%   { left: -75%; }
+      60%, 100% { left: 150%; }
+    }
+
+    /* ── 3D tilt service cards ── */
+    .service-card { transform-style: preserve-3d; will-change: transform; }
+
+    /* ── Gallery glow per item ── */
+    .gal-item { transition: box-shadow .3s, transform .35s; }
+    .gal-item:hover { transform: scale(1.04) translateY(-4px); }
+    .gal-item:nth-child(3n+1):hover { box-shadow: 0 0 0 2px rgba(124,58,237,.8), 0 8px 40px rgba(124,58,237,.6); }
+    .gal-item:nth-child(3n+2):hover { box-shadow: 0 0 0 2px rgba(6,182,212,.8),  0 8px 40px rgba(6,182,212,.6); }
+    .gal-item:nth-child(3n+3):hover { box-shadow: 0 0 0 2px rgba(236,72,153,.8), 0 8px 40px rgba(236,72,153,.6); }
+
+    /* ── Tag color pop on hover ── */
+    .tag {
+      transition: background .2s, border-color .2s, color .2s, transform .15s, box-shadow .2s;
+      cursor: default;
+    }
+    .tag:hover { transform: scale(1.12) translateY(-2px); }
+    .tag:nth-child(3n+1):hover  { background: rgba(124,58,237,.4); border-color: rgba(124,58,237,.8); color: #e9d5ff; box-shadow: 0 0 12px rgba(124,58,237,.5); }
+    .tag:nth-child(3n+2):hover  { background: rgba(6,182,212,.35); border-color: rgba(6,182,212,.8);  color: #a5f3fc; box-shadow: 0 0 12px rgba(6,182,212,.5); }
+    .tag:nth-child(3n+3):hover  { background: rgba(236,72,153,.35); border-color: rgba(236,72,153,.8); color: #fbcfe8; box-shadow: 0 0 12px rgba(236,72,153,.5); }
+
+    /* ── Contact row left accent bar ── */
+    .contact-row { position: relative; overflow: hidden; }
+    .contact-row::before {
+      content: ''; position: absolute; left: 0; top: 10%; bottom: 10%;
+      width: 3px; border-radius: 3px;
+      background: var(--grad);
+      transform: scaleY(0); transform-origin: center;
+      transition: transform .25s ease;
+    }
+    .contact-row:hover::before { transform: scaleY(1); }
+
+    /* ── Button ripple ── */
+    .btn { position: relative; overflow: hidden; }
+    .ripple {
+      position: absolute; border-radius: 50%;
+      transform: scale(0); animation: rippleAnim .55s linear;
+      background: rgba(255,255,255,.3);
+      pointer-events: none;
+    }
+    @keyframes rippleAnim {
+      to { transform: scale(4); opacity: 0; }
+    }
+
+    /* ── Service card glow border on hover ── */
+    .services-grid { position: relative; }
+    .service-card {
+      position: relative;
+    }
+    .service-card::before {
+      content: ''; position: absolute; inset: 0;
+      border-radius: inherit;
+      background: linear-gradient(135deg, rgba(124,58,237,.25), rgba(6,182,212,.15));
+      opacity: 0; transition: opacity .3s;
+      pointer-events: none;
+    }
+    .service-card:hover::before { opacity: 1; }
+
+    /* ── Stats hover lift ── */
+    .stat { transition: background .25s; cursor: default; }
+    .stat:hover { background: var(--bg2); }
+
+    /* ── Divider ── */
+    .divider {
+      height: 1px; background: var(--stroke); margin: 0;
     }
   </style>
 </head>
 <body>
-  <header>
-    <div class="container nav">
-      <div class="brand">NNCS</div>
-      <a class="cta header-cta" href="#contact">Get in touch →</a>
+
+<div id="progress"></div>
+<div id="spotlight" aria-hidden="true"></div>
+
+<div class="orbs" aria-hidden="true">
+  <div class="orb orb1"></div>
+  <div class="orb orb2"></div>
+  <div class="orb orb3"></div>
+</div>
+
+<!-- ── Lightbox ── -->
+<div id="lightbox" role="dialog" aria-modal="true">
+  <button id="lb-close" aria-label="Close">✕</button>
+  <button id="lb-prev" aria-label="Previous">&#8592;</button>
+  <img id="lb-img" src="" alt="Gallery preview" />
+  <button id="lb-next" aria-label="Next">&#8594;</button>
+</div>
+
+<!-- ── Header ── -->
+<header id="header">
+  <div class="container">
+    <nav>
+      <div class="brand" title="Nitish Nayak Consultancy Services">N<span>NCS</span></div>
+      <div class="nav-links">
+        <a href="#services">Services</a>
+        <a href="#about">About</a>
+        <a href="#gallery">Gallery</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <a class="btn" href="#contact">Get in touch →</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <!-- ── Hero ── -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-inner">
+        <div class="hero-badge reveal"><span class="dot"></span> Trusted Consultancy Services</div>
+        <h1 class="reveal reveal-delay-1">
+          <span class="grad-text">Nitish Nayak</span><br>Consultancy Services
+        </h1>
+        <p class="reveal reveal-delay-2">
+          NNCS partners with organizations across India to deliver strategic guidance, operational clarity, and technology advisory — built for real results.
+        </p>
+        <div class="hero-actions reveal reveal-delay-3">
+          <a class="btn" href="#contact">Start a conversation →</a>
+          <a class="btn-outline" href="#services">Our services</a>
+        </div>
+      </div>
+
+      <div class="stats reveal reveal-delay-2">
+        <div class="stat">
+          <div class="stat-num" data-target="50">0</div>
+          <div class="stat-label">Clients served</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num" data-target="8">0</div>
+          <div class="stat-label">Years of expertise</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num" data-target="3">0</div>
+          <div class="stat-label">Core service areas</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num" data-target="100">0</div>
+          <div class="stat-label">% client focus</div>
+        </div>
+      </div>
     </div>
-  </header>
+  </section>
 
-  <main>
-    <section class="hero">
-      <div class="container">
-        <h2 class="headline">Professional Consultancy for Modern Businesses</h2>
-        <p class="sub">NNCS partners with organizations to provide trusted consulting services, tailored solutions, and long-term value. We keep things simple and effective.</p>
-        <div style="margin-top:1.2rem">
-          <a class="cta" href="#contact">Contact us</a>
+  <!-- ── Services ── -->
+  <section id="services">
+    <div class="container">
+      <p class="section-eyebrow reveal">What we do</p>
+      <h2 class="reveal reveal-delay-1">Solutions that <span class="grad-text">actually work</span></h2>
+      <p class="section-sub reveal reveal-delay-2">Tailored to your business. Focused on impact.</p>
+
+      <div class="services-grid">
+        <div class="service-card reveal">
+          <div class="service-icon" style="background:rgba(124,58,237,.15)">📈</div>
+          <h3>Business Strategy</h3>
+          <p>Structured planning and sharp decision-making frameworks to set your organization on the path to sustainable growth.</p>
+          <div class="arrow">Explore →</div>
+        </div>
+        <div class="service-card reveal reveal-delay-1">
+          <div class="service-icon" style="background:rgba(6,182,212,.12)">⚙️</div>
+          <h3>Operations Consulting</h3>
+          <p>Identify and eliminate inefficiencies in your processes, cutting costs and improving throughput without the guesswork.</p>
+          <div class="arrow">Explore →</div>
+        </div>
+        <div class="service-card reveal reveal-delay-2">
+          <div class="service-icon" style="background:rgba(236,72,153,.12)">💡</div>
+          <h3>Technology Advisory</h3>
+          <p>Practical guidance on adopting the right tools and digital systems — without the overengineering or vendor lock-in.</p>
+          <div class="arrow">Explore →</div>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <section id="services">
-      <div class="container">
-        <h2 class="section-title">Services</h2>
-        <p class="section-sub">Solutions designed to fit your needs.</p>
-        <div class="cards">
-          <div class="card"><h3>Business Strategy</h3><p>Guidance and planning to achieve sustainable growth.</p></div>
-          <div class="card"><h3>Operations Consulting</h3><p>Streamlining processes for efficiency and cost savings.</p></div>
-          <div class="card"><h3>Technology Advisory</h3><p>Support in adopting the right tools and systems.</p></div>
+  <!-- ── About ── -->
+  <section id="about">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-text">
+          <p class="section-eyebrow reveal">Who we are</p>
+          <h2 class="reveal reveal-delay-1">Built on clarity &amp;<br><span class="grad-text">long-term trust</span></h2>
+          <p class="reveal reveal-delay-2">Founded by Nitish Nayak, NNCS is a boutique consultancy based in Silvassa. We believe the best results come from honest analysis, clear communication, and staying committed to our clients beyond the first engagement.</p>
+          <p class="reveal reveal-delay-2">We don't chase size — we build depth. Each client relationship is treated as a long-term partnership.</p>
+          <ul class="value-list reveal reveal-delay-3">
+            <li>Clarity over complexity</li>
+            <li>Accountability at every stage</li>
+            <li>Results measured in outcomes, not hours</li>
+            <li>Local expertise, global perspective</li>
+          </ul>
+        </div>
+        <div class="about-card reveal reveal-delay-2">
+          <div class="about-card-title">Industry exposure</div>
+          <div class="tag-list">
+            <span class="tag">Manufacturing</span>
+            <span class="tag">Retail</span>
+            <span class="tag">Logistics</span>
+            <span class="tag">Finance</span>
+            <span class="tag">Healthcare</span>
+            <span class="tag">E-commerce</span>
+            <span class="tag">Education</span>
+            <span class="tag">Real Estate</span>
+            <span class="tag">FMCG</span>
+            <span class="tag">SMEs</span>
+          </div>
+          <div class="about-card-title" style="margin-top:1.8rem">Our approach</div>
+          <p style="color:var(--muted); font-size:.92rem; line-height:1.6">
+            We start by listening. Then we dig into the data, challenge assumptions, and build solutions that fit your reality — not a template.
+          </p>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <section id="about">
-      <div class="container">
-        <h2 class="section-title">About NNCS</h2>
-        <p class="section-sub">Founded by Nitish Nayak, NNCS is a consultancy that values clarity, efficiency, and long-term partnerships.</p>
+  <!-- ── Gallery ── -->
+  <section id="gallery">
+    <div class="container">
+      <p class="section-eyebrow reveal">Gallery</p>
+      <h2 class="reveal reveal-delay-1">Our work &amp; <span class="grad-text">milestones</span></h2>
+
+      <div class="gallery-grid" id="galleryGrid">
+        <!-- JS generated -->
       </div>
-    </section>
+    </div>
+  </section>
 
-    <section id="gallery">
-      <div class="container">
-        <h2 class="section-title">Gallery</h2>
-        
-        <div class="gallery-rows">
-          <div class="gallery-wrap">
-            <div class="gallery-track">
-              <img class="gallery-item" loading="lazy" decoding="async" src="images/01.jpeg" alt="Gallery image 1"/>
-              <img class="gallery-item" loading="lazy" decoding="async" src="images/02.jpeg" alt="Gallery image 2"/>
-              <img class="gallery-item" loading="lazy" decoding="async" src="images/03.jpeg" alt="Gallery image 3"/>
-              <img class="gallery-item" loading="lazy" decoding="async" src="images/04.jpeg" alt="Gallery image 4"/>
-              <img class="gallery-item" loading="lazy" decoding="async" src="images/05.jpeg" alt="Gallery image 5"/>
-              <img class="gallery-item" loading="lazy" decoding="async" src="images/06.jpeg" alt="Gallery image 6"/>
-              <img class="gallery-item" loading="lazy" decoding="async" src="images/07.jpeg" alt="Gallery image 7"/>
-              <img class="gallery-item" loading="lazy" decoding="async" src="images/08.jpeg" alt="Gallery image 8"/>
-              <img class="gallery-item" loading="lazy" decoding="async" src="images/09.jpeg" alt="Gallery image 9"/>
-              <img class="gallery-item" loading="lazy" decoding="async" src="images/10.jpeg" alt="Gallery image 10"/>
-              <img class="gallery-item" loading="lazy" decoding="async" src="images/11.jpeg" alt="Gallery image 11"/>
-              <img class="gallery-item" loading="lazy" decoding="async" src="images/12.jpeg" alt="Gallery image 12"/>
-              <img class="gallery-item" loading="lazy" decoding="async" src="images/13.jpeg" alt="Gallery image 13"/>
-              <img class="gallery-item" loading="lazy" decoding="async" src="images/14.jpeg" alt="Gallery image 14"/>
-              <img class="gallery-item" loading="lazy" decoding="async" src="images/15.jpeg" alt="Gallery image 15"/>
-              <img class="gallery-item" loading="lazy" decoding="async" src="images/16.jpeg" alt="Gallery image 16"/>
-              <img class="gallery-item" loading="lazy" decoding="async" src="images/17.jpeg" alt="Gallery image 17"/>
-              <img class="gallery-item" loading="lazy" decoding="async" src="images/18.jpeg" alt="Gallery image 18"/>
-              <img class="gallery-item" loading="lazy" decoding="async" src="images/19.jpeg" alt="Gallery image 19"/>
-              <img class="gallery-item" loading="lazy" decoding="async" src="images/20.jpeg" alt="Gallery image 20"/>
-              <img class="gallery-item" loading="lazy" decoding="async" src="images/21.jpeg" alt="Gallery image 21"/>
-              <img class="gallery-item" loading="lazy" decoding="async" src="images/22.jpeg" alt="Gallery image 22"/>
+  <!-- ── Contact ── -->
+  <section id="contact">
+    <div class="container">
+      <p class="section-eyebrow reveal">Get in touch</p>
+      <h2 class="reveal reveal-delay-1">Let's start a <span class="grad-text">conversation</span></h2>
+      <p class="section-sub reveal reveal-delay-2">We're available Mon–Fri, 9:00–18:00. Reach out and we'll get back to you within one business day.</p>
+
+      <div class="contact-grid">
+        <div class="contact-items">
+          <div class="contact-row reveal">
+            <div class="contact-icon">📧</div>
+            <div>
+              <b>Email</b>
+              <a href="mailto:support@nncs.in">support@nncs.in</a>
+            </div>
+          </div>
+          <div class="contact-row reveal reveal-delay-1">
+            <div class="contact-icon">📞</div>
+            <div>
+              <b>Phone / WhatsApp</b>
+              <a href="tel:+917016487939">+91 7016487939</a>
+            </div>
+          </div>
+          <div class="contact-row reveal reveal-delay-2">
+            <div class="contact-icon">📍</div>
+            <div>
+              <b>Office</b>
+              <span>Silvassa, Dadra &amp; Nagar Haveli</span>
+            </div>
+          </div>
+          <div class="contact-row reveal reveal-delay-3">
+            <div class="contact-icon">🕘</div>
+            <div>
+              <b>Working hours</b>
+              <span>Monday – Friday, 9:00 – 18:00</span>
             </div>
           </div>
         </div>
-      </div>
-    </section>
 
-    <section id="contact">
-      <div class="container">
-        <h2 class="section-title">Contact</h2>
-        <p class="section-sub">Reach out to us during office hours.</p>
-        <div class="card">
-          <div class="contact-item">
-            <div>📧</div>
-            <div><b>Email</b> <a href="mailto:support@nncs.in">support@nncs.in</a></div>
-          </div>
-          <div class="contact-item">
-            <div>📞</div>
-            <div><b>Phone / WhatsApp</b> <a href="tel:+917016487939">+91 7016487939</a></div>
-          </div>
-          <div class="contact-item">
-            <div>📍</div>
-            <div><b>Office</b> Silvassa, Dadra and Nagar Haveli</div>
-          </div>
-          <div class="contact-item">
-            <div>🕘</div>
-            <div><b>Hours</b> Mon–Fri, 9:00–18:00</div>
-          </div>
+        <div class="map-placeholder reveal reveal-delay-1">
+          <div class="pin">📍</div>
+          <p>Silvassa, Dadra &amp; Nagar Haveli<br>India — 396230</p>
+          <a class="btn" href="https://maps.google.com/?q=Silvassa,Dadra+and+Nagar+Haveli" target="_blank" rel="noopener">Open in Maps →</a>
         </div>
       </div>
-    </section>
-  </main>
-
-  <footer>
-    <div class="container" style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:1rem">
-      <div>© <span id="year"></span> NNCS — Nitish Nayak Consultancy Services. All rights reserved.</div>
-      <div style="display:flex; gap:1rem">
-        <a href="#">Privacy</a>
-        <a href="#">Terms</a>
-      </div>
     </div>
-  </footer>
+  </section>
+</main>
 
-  <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
+<footer>
+  <div class="container footer-inner">
+    <div class="footer-copy">© <span id="year"></span> NNCS — Nitish Nayak Consultancy Services. All rights reserved.</div>
+    <div class="footer-links">
+      <a href="#">Privacy</a>
+      <a href="#">Terms</a>
+    </div>
+  </div>
+</footer>
 
-    // Blur-up once loaded
-    document.querySelectorAll('.gallery-item').forEach(img=>{
-      if(img.complete) img.classList.add('loaded');
-      else img.addEventListener('load', ()=>img.classList.add('loaded'), {once:true});
+<script>
+  // Year
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // Scroll progress
+  const prog = document.getElementById('progress');
+  window.addEventListener('scroll', () => {
+    const pct = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight) * 100;
+    prog.style.width = pct + '%';
+    document.getElementById('header').classList.toggle('scrolled', window.scrollY > 20);
+  }, { passive: true });
+
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // Counter animation
+  function animateCounter(el) {
+    const target = +el.dataset.target;
+    const suffix = target === 100 ? '%' : '+';
+    const step = Math.ceil(target / 40);
+    let current = 0;
+    const timer = setInterval(() => {
+      current = Math.min(current + step, target);
+      el.textContent = current + suffix;
+      if (current >= target) clearInterval(timer);
+    }, 40);
+  }
+  const counterObserver = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { animateCounter(e.target); counterObserver.unobserve(e.target); }
     });
-  </script>
+  }, { threshold: 0.5 });
+  document.querySelectorAll('[data-target]').forEach(el => counterObserver.observe(el));
+
+  // Gallery — build grid
+  const total = 18;
+  const grid = document.getElementById('galleryGrid');
+  const srcs = Array.from({ length: total }, (_, i) => `images/${String(i + 1).padStart(2, '0')}.jpeg`);
+  srcs.forEach((src, i) => {
+    const wrap = document.createElement('div');
+    wrap.className = 'gal-item';
+    wrap.dataset.index = i;
+    wrap.innerHTML = `
+      <img loading="lazy" decoding="async" src="${src}" alt="Gallery image ${i + 1}" />
+      <div class="gal-overlay">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+      </div>`;
+    wrap.querySelector('img').addEventListener('load', function() { this.classList.add('loaded'); });
+    wrap.querySelector('img').addEventListener('error', function() { wrap.style.display = 'none'; });
+    wrap.addEventListener('click', () => openLightbox(i));
+    grid.appendChild(wrap);
+  });
+
+  // Lightbox
+  const lb = document.getElementById('lightbox');
+  const lbImg = document.getElementById('lb-img');
+  let lbIndex = 0;
+  const validSrcs = srcs.slice();
+
+  function openLightbox(i) {
+    lbIndex = i; lbImg.src = validSrcs[i]; lb.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLightbox() { lb.classList.remove('open'); document.body.style.overflow = ''; }
+  function lbStep(dir) {
+    lbIndex = (lbIndex + dir + validSrcs.length) % validSrcs.length;
+    lbImg.src = validSrcs[lbIndex];
+  }
+  document.getElementById('lb-close').addEventListener('click', closeLightbox);
+  document.getElementById('lb-prev').addEventListener('click', () => lbStep(-1));
+  document.getElementById('lb-next').addEventListener('click', () => lbStep(1));
+  lb.addEventListener('click', e => { if (e.target === lb) closeLightbox(); });
+  document.addEventListener('keydown', e => {
+    if (!lb.classList.contains('open')) return;
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowLeft') lbStep(-1);
+    if (e.key === 'ArrowRight') lbStep(1);
+  });
+
+  // Cursor spotlight — smooth lerp
+  const spotlight = document.getElementById('spotlight');
+  let mx = -999, my = -999, sx = -999, sy = -999;
+  function lerpSpotlight() {
+    sx += (mx - sx) * 0.1;
+    sy += (my - sy) * 0.1;
+    spotlight.style.background =
+      `radial-gradient(400px circle at ${sx}px ${sy}px, rgba(124,58,237,.22), transparent 65%)`;
+    requestAnimationFrame(lerpSpotlight);
+  }
+  document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; }, { passive: true });
+  lerpSpotlight();
+
+  // 3D tilt on service cards
+  document.querySelectorAll('.service-card').forEach(card => {
+    card.addEventListener('mousemove', e => {
+      const r = card.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width  - 0.5;
+      const y = (e.clientY - r.top)  / r.height - 0.5;
+      card.style.transform = `perspective(500px) rotateY(${x * 18}deg) rotateX(${-y * 18}deg) translateZ(12px) scale(1.02)`;
+    }, { passive: true });
+    card.addEventListener('mouseleave', () => {
+      card.style.transition = 'transform .4s ease';
+      card.style.transform = '';
+      setTimeout(() => card.style.transition = '', 400);
+    });
+  });
+
+  // Button ripple
+  document.querySelectorAll('.btn').forEach(btn => {
+    btn.addEventListener('click', e => {
+      const r = btn.getBoundingClientRect();
+      const size = Math.max(r.width, r.height);
+      const el = document.createElement('span');
+      el.className = 'ripple';
+      el.style.cssText = `width:${size}px;height:${size}px;left:${e.clientX - r.left - size/2}px;top:${e.clientY - r.top - size/2}px`;
+      btn.appendChild(el);
+      el.addEventListener('animationend', () => el.remove());
+    });
+  });
+</script>
 </body>
 </html>
